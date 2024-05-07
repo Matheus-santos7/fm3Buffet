@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./index.js"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +15,7 @@
     "mv": "^2.1.1",
     "mysql": "^2.18.1",
     "node-schema-object": "^3.3.4",
+    "nodemon": "^3.1.0",
     "recursive-readdir": "^2.2.3",
     "restify": "^11.1.0",
     "restify-eventsource": "^2.0.0"

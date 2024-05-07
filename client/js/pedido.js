@@ -327,7 +327,7 @@ pedido.method = {
 
         // converte para URL
         let encode = encodeURI(texto);
-        let URL = `https://wa.me/5517991686069?text=${encode}`;
+        let URL = `https://wa.me/5531983312175?text=${encode}`;
 
         window.location.href = URL;
 

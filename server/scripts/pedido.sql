@@ -131,3 +131,35 @@ WHERE idpedido = @idpedido
 
 --END#atualizarStatusPedido#
 
+
+--INIT#atualizarStatusPedidoFinalizado#
+
+UPDATE pedido
+SET idpedidostatus = @idpedidostatus, datafinalizado = CURRENT_TIMESTAMP()
+WHERE idpedido = @idpedido
+
+--END#atualizarStatusPedidoFinalizado#
+
+
+--INIT#historicoPedidos#
+
+SELECT
+	p.idpedido
+    , p.nomecliente
+    , te.nome as tipoentrega
+    , fp.nome as formapagamento
+    , p.datacadastro
+    , ps.idpedidostatus
+    , ps.descricao as pedidostatus
+    , p.total
+FROM
+	pedido AS p
+    JOIN pedidostatus AS ps ON ps.idpedidostatus = p.idpedidostatus
+    JOIN tipoentrega AS te ON te.idtipoentrega = p.idtipoentrega
+    JOIN formapagamento AS fp ON fp.idformapagamento = p.idformapagamento
+WHERE
+    p.datacadastro BETWEEN @datainicio AND @datafim
+ORDER BY
+	p.idpedido DESC
+
+--END#historicoPedidos#

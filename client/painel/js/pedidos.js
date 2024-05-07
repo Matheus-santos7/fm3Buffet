@@ -1,7 +1,3 @@
-document.addEventListener("DOMContentLoaded", function (event) {
-    pedido.event.init();
-});
-
 var pedido = {};
 
 var MODAL_DETALHES = new bootstrap.Modal(document.getElementById('modalDetalhes'));
@@ -417,7 +413,7 @@ pedido.method = {
     moverPara: (target, idpedido) => {
 
         // se for recusar, abre a modal de confirmação
-        if (idpedido == 6) {
+        if (parseInt(target) == 6) {
             return;
         }
 

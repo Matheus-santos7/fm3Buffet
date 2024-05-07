@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel - Buffet - FM3 Festas</title>
+    <title>Painel</title>
 
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/fontawesome.css">
@@ -15,6 +15,14 @@
 
 </head>
 <body>
+
+    <div class="container-mensagens" id="container-mensagens">
+
+    </div>
+
+    <div class="loader-full animated fadeIn hidden">
+        <img src="../img/loader.png" width="100" class="animated pulse infinite" />
+    </div>
 
     <section class="bg-menu">
 
@@ -79,17 +87,17 @@
                         <div class="col-12">
                             
                             <div class="menus-config">
-                                <a href="#" class="btn btn-white btn-sm active">
+                                <a href="#" class="btn btn-white btn-sm active tab-content" id="tab-faturamento" onclick="relatorio.method.openTab('faturamento')">
                                     <i class="fas fa-dollar-sign"></i> Faturamento
                                 </a>
-                                <a href="#" class="btn btn-white btn-sm">
+                                <a href="#" class="btn btn-white btn-sm tab-content" id="tab-historico" onclick="relatorio.method.openTab('historico')">
                                     <i class="fas fa-receipt"></i> Histórico de Pedidos
                                 </a>
                             </div>
 
                         </div>
 
-                        <div class="col-12 mt-5 mb-5" id="faturamento">
+                        <div class="col-12 mt-5 mb-5 tab-item" id="faturamento">
                         
                             <p class="title-categoria mb-0 mb-4">
                                 <b>Acompanhe suas vendas e faturamento por período.</b>
@@ -100,21 +108,21 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <p class="title-categoria mb-0"><b>Data início:</b></p>
-                                        <input id="txtDataInicio" type="date" class="form-control" />
+                                        <input id="txtDataInicioFaturamento" type="date" class="form-control" />
                                     </div>
                                 </div>
 
                                 <div class="col-3">
                                     <div class="form-group">
                                         <p class="title-categoria mb-0"><b>Data fim:</b></p>
-                                        <input id="txtDataFim" type="date" class="form-control" />
+                                        <input id="txtDataFimFaturamento" type="date" class="form-control" />
                                     </div>
                                 </div>
 
                                 <div class="col-3">
                                     <div class="form-group">
                                         <p class="title-categoria mb-0"><b>Categoria:</b></p>
-                                        <select id="ddlUf" class="form-control">
+                                        <select id="ddlCategoriaFaturamento" class="form-control">
                                             <option value="0">Todas</option>
                                             <option value="1">Delivery</option>
                                             <option value="2">Retirada</option>
@@ -123,7 +131,7 @@
                                 </div>
 
                                 <div class="col-3">
-                                    <a class="btn btn-yellow btn-sm mt-4">
+                                    <a href="#!" class="btn btn-yellow btn-sm mt-4" onclick="relatorio.method.filtrarFaturamento()">
                                         <i class="fas fa-search"></i>&nbsp; Filtrar Dados
                                     </a>
                                 </div>
@@ -140,7 +148,7 @@
                                         </div>
                                         <div class="infos">
                                             <p class="text mb-0"><b>Total:</b></p>
-                                            <p class="value-card mb-0"><b>R$ 15650,90</b></p>
+                                            <p class="value-card mb-0"><b id="lblTotalFaturamento">-</b></p>
                                         </div>
                                     </div>
 
@@ -150,7 +158,7 @@
                                         </div>
                                         <div class="infos">
                                             <p class="text mb-0"><b>Nº Pedidos:</b></p>
-                                            <p class="value-card mb-0"><b>8</b></p>
+                                            <p class="value-card mb-0"><b id="lblTotalPedidos">-</b></p>
                                         </div>
                                     </div>
 
@@ -160,7 +168,7 @@
                                         </div>
                                         <div class="infos">
                                             <p class="text mb-0"><b>Ticket Médio:</b></p>
-                                            <p class="value-card mb-0"><b>R$ 154,90</b></p>
+                                            <p class="value-card mb-0"><b id="lblTicketMedio">-</b></p>
                                         </div>
                                     </div>
 
@@ -176,16 +184,15 @@
                                                 <span class="value"></span>
                                             </div>
                                         </div>
+                                        <p class="hidden" id="lblNenhumFaturamento">Nenhum faturamento encontrado no período selecionado.</p>
                                     </div>
                                 </div>
-
-                                
 
                             </div>
 
                         </div>
 
-                        <div class="col-12 mt-5 mb-5 hidden" id="historico">
+                        <div class="col-12 mt-5 mb-5 tab-item hidden" id="historico">
 
                             <p class="title-categoria mb-0 mb-4">
                                 <b>Filtre todos os pedidos realizados.</b>
@@ -196,19 +203,19 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <p class="title-categoria mb-0"><b>Data início:</b></p>
-                                        <input id="txtDataInicio" type="date" class="form-control" />
+                                        <input id="txtDataInicioHistorico" type="date" class="form-control" />
                                     </div>
                                 </div>
 
                                 <div class="col-3">
                                     <div class="form-group">
                                         <p class="title-categoria mb-0"><b>Data fim:</b></p>
-                                        <input id="txtDataFim" type="date" class="form-control" />
+                                        <input id="txtDataFimHistorico" type="date" class="form-control" />
                                     </div>
                                 </div>
 
                                 <div class="col-3">
-                                    <a class="btn btn-yellow btn-sm mt-4">
+                                    <a href="#!" class="btn btn-yellow btn-sm mt-4" onclick="relatorio.method.filtrarHistorico()">
                                         <i class="fas fa-search"></i>&nbsp; Filtrar Dados
                                     </a>
                                 </div>
@@ -218,7 +225,7 @@
                             <div class="card card-table mt-5">
 
                                 <div class="table-responsive">
-                                    <table id="data-table" class="table data-table">
+                                    <table id="data-table" class="table data-table mb-0">
                                         <thead>
                                             <tr>
                                                 <th># Código</th>
@@ -290,12 +297,94 @@
 
     </section>
 
+    <!-- Modal de Detalhes do Pedido (cópia do arquivo pedidos.html) -->
+    <div id="modalDetalhes" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Detalhes do pedido</h5>
+              <button type="button" class="btn btn-white btn-sm" data-bs-dismiss="modal" aria-label="Close">
+                <i class="fas fa-times"></i>&nbsp; Fechar
+              </button>
+            </div>
+            <div class="modal-body">
+              
+                <div class="container-dados-pedido pt-1">
+                    <div class="row">
+
+                        <div class="col-12">
+                            <div class="card card-address cursor-default">
+                                <div class="img-icon-details status">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="infos pr-0">
+                                    <div class="d-flex">
+                                        <p class="name mb-0"><b id="lblNomeCliente"></b></p>
+                                        <span class="text mb-0" id="lblTelefoneCliente"></span>
+                                    </div>
+                                    <div class="d-flex">
+                                        <span class="info-pedido" id="lblDataHora"></span>
+                                        <span class="info-pedido link" id="lblTipoEntrega"></span>
+                                   </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="card card-address cursor-default mt-2">
+                                <div class="img-icon-details status" id="lblFormaPagamentoIcon">
+                                </div>
+                                <div class="infos">
+                                    <p class="name mb-0"><b id="lblFormaPagamentoTitulo"></b></p>
+                                    <span class="text mb-0" id="lblFormaPagamentoDescricao"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 hidden" id="container-endereco">
+                            <div class="card card-address cursor-default mt-2">
+                                <div class="img-icon-details status">
+                                    <i class="fas fa-map-marked-alt"></i>
+                                </div>
+                                <div class="infos">
+                                    <p class="name mb-0"><b id="lblEndereco"></b></p>
+                                    <span class="text mb-0" id="lblCep"></span>
+                                </div>
+                                <div class="icon-edit">
+                                    <i class="fas fa-location-arrow"></i>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+
+                <div class="container-itens-pedido carrinho">
+
+                    <div id="itensPedido">
+
+                    </div>
+
+                    <div class="footer-btn mt-3" id="container-action-footer">
+                        
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+              
+            </div>
+          </div>
+        </div>
+    </div>
+
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
-    <!-- <script type="text/javascript" src="../js/dataTables.bootstrap.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script> -->
     <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
     <script type="text/javascript" src="../js/chart.js"></script>
+    <script type="text/javascript" src="../js/app.js"></script>
+    <script type="text/javascript" src="./js/pedidos.js"></script>
     <script type="text/javascript" src="./js/relatorio.js"></script>
 
 </body> 

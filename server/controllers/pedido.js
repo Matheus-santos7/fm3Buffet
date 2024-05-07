@@ -4,7 +4,7 @@ const ReadCommandSql = require('../common/readCommandSql.js');
 const readCommandSql = new ReadCommandSql();
 
 // Chave da APIKEY - https://www.geoapify.com/
-const key = '60058e8edaa342b5ace29a0183c5ecf0';
+const key = '1c4f6098b8144c3aa91d9055eeb4917b';
 
 const controllers = () => {
 
@@ -56,8 +56,6 @@ const controllers = () => {
             // obtem qual taxa se adequa a esta distancia
             var ComandoSQLTaxa = await readCommandSql.retornaStringSql('obterValorTaxaPorKm', 'entrega');
             var taxas = await db.Query(ComandoSQLTaxa, { distancia: distanciaKm });
-
-            console.log('taxas[0].idtaxaentrega', taxas[0].idtaxaentrega)
 
             if (taxas.length > 0) {
                 return {
@@ -320,8 +318,17 @@ const controllers = () => {
 
         try {
 
-            var ComandoSQL = await readCommandSql.retornaStringSql('atualizarStatusPedido', 'pedido');
-            var result = await db.Query(ComandoSQL, { idpedidostatus: req.body.tab, idpedido: req.body.idpedido });
+            if (req.body.tab == 5) {
+
+                // finalizar pedido
+
+                var ComandoSQL = await readCommandSql.retornaStringSql('atualizarStatusPedidoFinalizado', 'pedido');
+                await db.Query(ComandoSQL, { idpedidostatus: req.body.tab, idpedido: req.body.idpedido });
+            }
+            else {
+                var ComandoSQL = await readCommandSql.retornaStringSql('atualizarStatusPedido', 'pedido');
+                await db.Query(ComandoSQL, { idpedidostatus: req.body.tab, idpedido: req.body.idpedido });
+            }
 
             return {
                 status: 'success',
@@ -338,12 +345,42 @@ const controllers = () => {
 
     }
 
+    // filtra o histórico de pedidos
+    const historicoPedidos = async (req) => {
+
+        try {
+
+            let datainicio = `${req.body.datainicio} 00:00:00`;
+            let datafim = `${req.body.datafim} 23:59:59`;
+
+            var ComandoSQL = await readCommandSql.retornaStringSql('historicoPedidos', 'pedido');
+            var result = await db.Query(ComandoSQL, {
+                datainicio: datainicio,
+                datafim: datafim
+            });
+
+            return {
+                status: 'success',
+                data: result
+            }
+
+        } catch (ex) {
+            console.log(ex);
+            return {
+                status: 'error',
+                message: 'Falha ao obter o histórico dos pedidos. Por favor, tente novamente.'
+            }
+        }
+
+    }
+
     return Object.create({
         calcularTaxaDelivery
         , salvarPedido
         , obterPedidoPorId
         , obterPedidoPorStatus
         , atualizarStatusPedido
+        , historicoPedidos
     })
 
 }
