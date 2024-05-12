@@ -78,7 +78,7 @@ cardapio.method = {
             document.querySelector("#listaCategorias").innerHTML = '';
 
             // limpa o cardápio
-            document.querySelector("#listaItensCardapio").innerHTML = '';
+            document.querySelector("#listaItenscardapio").innerHTML = '';
 
             list.forEach((e, i) => {
 
@@ -101,7 +101,7 @@ cardapio.method = {
                     .replace(/\${nome}/g, e.nome);
 
                 // adiciona a categoria no cardápio
-                document.querySelector("#listaItensCardapio").innerHTML += tempHeaderCategoria;
+                document.querySelector("#listaItenscardapio").innerHTML += tempHeaderCategoria;
 
                 // No último item, obtem os produtos
                 if (list.length == (i + 1)) {
@@ -196,7 +196,7 @@ cardapio.method = {
     // valida o scroll para ativar a categoria
     validarCategoriaScroll: () => {
 
-        var categorias = document.querySelector("#listaItensCardapio").getElementsByClassName('container-group');
+        var categorias = document.querySelector("#listaItenscardapio").getElementsByClassName('container-group');
 
         for (let index = 0; index < categorias.length; index++) {
 

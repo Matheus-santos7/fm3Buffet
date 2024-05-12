@@ -8,11 +8,11 @@ const ctImagem = require('../controllers/imagem')
 const controllers = () => {
 
     // obtem a lista de produtos para exibir no cardápio
-    const listaCardapio = async (req) => {
+    const listacardapio = async (req) => {
 
         try {
 
-            var ComandoSQL = await readCommandSql.retornaStringSql('listaCardapio', 'produto');
+            var ComandoSQL = await readCommandSql.retornaStringSql('listacardapio', 'produto');
             var result = await db.Query(ComandoSQL);
 
             return {
@@ -252,7 +252,7 @@ const controllers = () => {
     }
 
     return Object.create({
-        listaCardapio
+        listacardapio
         , obterPorId
         , obterPorCategoriaId
         , salvarDados

@@ -6,7 +6,7 @@ module.exports = (server) => {
 
     // obtem a lista de produtos para exibir no cardápio
     server.get('/produto', async (req, res) => {
-        const result = await ct.controllers().listaCardapio(req);
+        const result = await ct.controllers().listacardapio(req);
         res.send(result);
     });
 

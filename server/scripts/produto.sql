@@ -1,4 +1,4 @@
---INIT#listaCardapio#
+--INIT#listacardapio#
 
 SELECT
 	*
@@ -9,7 +9,7 @@ WHERE
 ORDER BY
 	-ordem DESC, idproduto ASC
 
---END#listaCardapio#
+--END#listacardapio#
 
 --INIT#obterPorId#
 
