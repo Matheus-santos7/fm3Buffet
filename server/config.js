@@ -4,7 +4,7 @@ var config = {
         port: 3000,
         ambiente: 'DEV',
         database: {
-            host: 'database-2.chgoy2ig60z9.us-east-1.rds.amazonaws.com',
+            host: 'db-fm3buffet.chgoy2ig60z9.us-east-1.rds.amazonaws.com',
             port: 3306,
             user: 'teste',
             password: 'testeteste',
