@@ -4,10 +4,10 @@ var config = {
         port: 3000,
         ambiente: 'DEV',
         database: {
-            host: 'localhost',
+            host: 'database-2.chgoy2ig60z9.us-east-1.rds.amazonaws.com',
             port: 3306,
-            user: 'root',
-            password: '1101Matheus',
+            user: 'teste',
+            password: 'testeteste',
             database: 'deliveryOnline'
         },
     }
