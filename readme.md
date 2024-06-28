@@ -1,12 +1,9 @@
 # FM3 Buffet
 
-![GitHub repo size](https://img.shields.io/github/repo-size/Matheus-santos7/fm3Buffet?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/Matheus-santos7/fm3Buffet?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/Matheus-santos7/fm3Buffet?style=for-the-badge)
-![Bitbucket open issues](https://img.shields.io/bitbucket/issues/Matheus-santos7/fm3Buffet?style=for-the-badge)
-![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/Matheus-santos7/fm3Buffet?style=for-the-badge)
-
-
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 
 > Sistema para exibição de catálogo de buffet e controle de pedidos. Simples, eficiente e fácil de usar.
 
@@ -15,10 +12,11 @@
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
 
 - [ ] Responsividade do painel administrativo para dispostivos ate 600px (tablet).
+- [ ] Menu lateral escondido para melhorar o layout da tela em dispositivos ate 600px (tablet).
 - [ ] Criar modal para o cliente escolher o modo de pagamento e para input de troco.
 - [ ] Refatorar icones de todas as paginas.
-- [ ] Bug ao adicionar/remover imagem 
-- [ ] Recursar pedido (Voltar o estagio do pedido)
+- [ ] Bug ao adicionar/remover imagem.
+- [ ] Recursar pedido (Voltar o estagio do pedido).
 - [ ] Envio de notificaçoes para whatsApp do cliente.
 
 
@@ -26,7 +24,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
-- Você instalou a versão mais recente de `Docks / dependência / requeridos>`
+- Você instalou a versão mais recente de `< Node,js, / Mysql >`
 - Você tem uma máquina `<Windows / Linux / Mac>`.
 - Você leu `<guia / link / documentação_relacionada_ao_projeto>`.
 
@@ -51,7 +49,7 @@ Windows:
 Para usar FM3 Buffet, siga estas etapas:
 
 ```
-<exemplo_de_uso>
+< npm run index >
 ```
 
 Adicione comandos de execução e exemplos que você acha que os usuários acharão úteis. Fornece uma referência de opções para pontos de bônus!
