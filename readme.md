@@ -16,15 +16,17 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 
 - [ ] Responsividade do painel administrativo para dispostivos ate 600px (tablet).
 - [ ] Criar modal para o cliente escolher o modo de pagamento e para input de troco.
-- [ ] Tarefa 3
-- [ ] Tarefa 4
-- [ ] Tarefa 5
+- [ ] Refatorar icones de todas as paginas.
+- [ ] Bug ao adicionar/remover imagem 
+- [ ] Recursar pedido (Voltar o estagio do pedido)
+- [ ] Envio de notificaçoes para whatsApp do cliente.
+
 
 ## 💻 Pré-requisitos
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
-- Você instalou a versão mais recente de `<linguagem / dependência / requeridos>`
+- Você instalou a versão mais recente de `Docks / dependência / requeridos>`
 - Você tem uma máquina `<Windows / Linux / Mac>`.
 - Você leu `<guia / link / documentação_relacionada_ao_projeto>`.
 
