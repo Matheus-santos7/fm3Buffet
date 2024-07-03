@@ -1,27 +1,33 @@
-version: '3.8'  # Versão do formato do arquivo do Docker Compose.
+version: '3.8'
 
-services:  # Início da seção de serviços, onde você define os contêineres que serão executados.
+services:
+  app:
+    container_name: fm3buffet
+    image: theussm/fm3buffet:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - AMBIENTE=dev
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=123
+      - DB_NAME=deliveryOnline
+    depends_on:
+      - db
 
-  app:  # Nome do serviço da sua aplicação.
-    build:  # Configuração para construir a imagem do contêiner.
-      context: .  # O contexto do build é o diretório atual (onde está localizado o arquivo docker-compose.yml).
-      dockerfile: Dockerfile  # O arquivo Dockerfile que será usado para construir a imagem.
-    volumes:  # Mapeamento de volumes entre o host e o contêiner.
-      - .:/app  # Mapeia o diretório atual do host para o diretório /app dentro do contêiner.
-    ports:  # Mapeamento de portas entre o host e o contêiner.
-      - "3000:3000"  # Mapeia a porta 3000 do host para a porta 3000 do contêiner.
-    environment:  # Variáveis de ambiente para a aplicação.
-      NODE_ENV: production  # Define a variável de ambiente NODE_ENV como 'production'.
-      MYSQL_HOST: mysql  # Define a variável de ambiente MYSQL_HOST como 'mysql' para o host do MySQL.
-    depends_on:  # Define as dependências do serviço, neste caso, depende do serviço MySQL.
-      - mysql  # Nome do serviço do qual este serviço depende.
+  db:
+    image: mysql:8.0
+    container_name: fm3buffet_db
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: deliveryOnline
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./docker/backup.sh:/docker-entrypoint-initdb.d/backup.sh
+      - ./docker/backups:/backups
 
-  mysql:  # Nome do serviço do MySQL.
-    image: mysql:latest  # Usa a imagem mais recente do MySQL do Docker Hub.
-    environment:  # Variáveis de ambiente para o contêiner MySQL.
-      MYSQL_ROOT_PASSWORD: 123  # Define a senha do root do MySQL como '123'.
-      MYSQL_DATABASE: deliveryOnline  # Cria um banco de dados chamado 'deliveryOnline' durante a inicialização.
-    ports:  # Mapeamento de portas entre o host e o contêiner MySQL.
-      - "3306:3306"  # Mapeia a porta 3306 do host para a porta 3306 do contêiner MySQL.
-    volumes:  # Mapeamento de volumes entre o host e o contêiner MySQL.
-      - ./docker/mysql:/docker-entrypoint-initdb.d  # Mapeia o diretório com arquivos SQL do host para o diretório de inicialização do MySQL no contêiner.
+volumes:
+  db_data:

@@ -11,6 +11,7 @@ COPY ./server/package*.json ./server/
 RUN cd ./server && npm install
 
 # Copie o código do backend e frontend para o container
+COPY ./docker ./docker
 COPY ./server ./server
 COPY ./client ./client
 COPY index.js .

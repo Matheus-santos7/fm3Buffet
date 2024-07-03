@@ -23,6 +23,10 @@ USE `deliveryOnline` ;
 -- -----------------------------------------------------
 -- Table `deliveryOnline`.`categoria`
 -- -----------------------------------------------------
+
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123';
+FLUSH PRIVILEGES;
+
 CREATE TABLE IF NOT EXISTS `deliveryOnline`.`categoria` (
   `idcategoria` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,
