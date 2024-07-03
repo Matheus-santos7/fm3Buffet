@@ -28,31 +28,51 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 - Você tem uma máquina `<Windows / Linux / Mac>`.
 - Você leu `<guia / link / documentação_relacionada_ao_projeto>`.
 
-## 🚀 Instalando fm3Buffet
+## 🚀 Criando uma imagem fm3Buffet
 
-Para instalar o FM3 Buffet, siga estas etapas:
+Para criar uma imagem Docker com um novo versionamento, siga estas etapas:
 
-Linux e macOS:
+### 1. Criando um build:
 
+```bash
+docker build --platform linux/amd64 -t fm3buffet .
 ```
-<comando_de_instalação>
+
+### 2. Criando uma tag LATEST e v1.0.XX:
+Para criar uma nova tag para a imagem que você construiu:
+
+```bash
+docker tag fm3buffet theussm/fm3buffet:1.0.12
+```
+```bash
+docker tag fm3buffet theussm/fm3buffet:latest
+```
+Substitua 1.0.12 pelo número de versão desejado.
+
+### Push para o repositório Docker Hub:
+Para enviar a imagem para o Docker Hub (ou outro repositório Docker):
+
+```bash
+docker push theussm/fm3buffet:1.0.12
 ```
 
-Windows:
+Isso torna a imagem disponível para outros usuários ou para implantações em outros ambientes.
 
-```
-<comando_de_instalação>
-```
+
 
 ## ☕ Usando FM3 Buffet
 
 Para usar FM3 Buffet, siga estas etapas:
 
-```
-< npm run index >
+```bash
+docker compose <caminho do arquivo> up
 ```
 
-Adicione comandos de execução e exemplos que você acha que os usuários acharão úteis. Fornece uma referência de opções para pontos de bônus!
+Para acessar o banco ou aplicação dos containers:
+
+```bash
+docker compose exec -it <container_do_db> bash
+```
 
 ## 📫 Contribuindo para FM3 Buffet
 
