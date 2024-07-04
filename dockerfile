@@ -18,9 +18,14 @@ COPY index.js .
 
 # Compile ou faça qualquer configuração necessária para o frontend
 # Exemplo de construção do frontend
-# RUN cd ./cliente && npm install && npm run build
+    # RUN cd ./cliente && npm install && npm run build
 
-# Exponha a porta que sua aplicação usará
+# Instalação do cron e configuração da tarefa agendada
+    # RUN apt-get update && apt-get -y install cron
+    # RUN echo "*/10 * * * * /app/docker/backup.sh" > /etc/cron.d/backup-cron
+    # RUN chmod 0644 /etc/cron.d/backup-cron
+
+# # Exponha a porta que sua aplicação usará
 EXPOSE 3000
 
 # Comando para iniciar a aplicação

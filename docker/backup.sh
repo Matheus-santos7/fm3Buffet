@@ -1,15 +1,11 @@
-#!/bin/bash
+# #!/bin/bash
 
-# Espera o MySQL iniciar
-while ! mysqladmin ping -h"localhost" --silent; do
-    sleep 1
-done
+# # Diretório onde será salvo o backup dentro do container
+# BACKUP_DIR="./docker"
 
-# Faz o backup inicial
-mysqldump -uroot -p123 deliveryOnline > /backups/deliveryOnline_$(date +'%Y%m%d%H%M%S').sql
+# # Nome do arquivo de backup
+# BACKUP_FILE="initTeste.sql"
 
-# Agendamento do backup para cada hora
-while true; do
-    sleep 3600
-    mysqldump -uroot -p123 deliveryOnline > /backups/deliveryOnline_$(date +'%Y%m%d%H%M%S').sql
-done
+# # Comando para realizar o backup
+# # Exemplo: para MySQL
+# mysqldump -u root -p deliveryOnline > "$BACKUP_DIR/$BACKUP_FILE"
