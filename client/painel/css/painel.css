@@ -85,6 +85,17 @@ span.icon-form-redefinirSenha {
     font-size: 18px;
 }
 
+span.icon-form-close {
+    display: flex;
+    color: var(--color-primary);
+    font-size: 30px;
+    position: absolute; 
+    top: 20px; 
+    right: 20px;
+    align-items: center;
+    cursor: pointer; /* Adiciona um cursor pointer para indicar que é clicável */
+}
+
 .card-redefinirSenha img {
     margin: 0 auto;
     margin-bottom: 30px;
