@@ -299,4 +299,8 @@ app.method = {
         );
     },
 
+    // Função para verificar se o email tem o formato correto
+    isValidEmail: (email) => {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
 }
