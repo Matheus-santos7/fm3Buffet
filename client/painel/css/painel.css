@@ -38,6 +38,72 @@ span.icon-form {
     font-size: 18px;
 }
 
+/* Esqueci a senha */
+
+h1.title-redefinirSenha{
+    color: var(--color-black);
+    font-size: 22px;
+    flex: 1;
+    text-align: center;
+}
+
+h2.title-redefinirSenha{
+    color: var(--color-black);
+    font-size: 14px;
+    flex: 1;
+    text-align: center ;
+}
+
+h2.description-redefinirSenha{
+    color: var(--color-primary);
+    font-size: 14px;
+    flex: 1;
+    padding-left: 10px;
+}
+
+.redefinirSenha {
+    width: calc(100% - 20px);
+    max-width: 450px;
+    margin: 0px auto;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-redefinirSenha {
+    flex: 1;
+    padding: 45px;
+    background-color: var(--color-secondary);
+}
+
+span.icon-form-redefinirSenha {
+    position: absolute;
+    margin-left: 15px;
+    margin-top: 37px;
+    color: var(--color-primary);
+    font-size: 18px;
+}
+
+.card-redefinirSenha img {
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.card-redefinirSenha input {
+    padding-left: 45px;
+}
+
+.btn-redefinirSenha {
+    padding: 12px;
+    font-size: 17px;    
+}
+.container-envio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* cardapio */
 
 /* MENU LEFT */
@@ -126,6 +192,7 @@ h1.title-page {
     font-size: 20px;
     flex: 1;
 }
+
 
 .container-right {
     display: flex;

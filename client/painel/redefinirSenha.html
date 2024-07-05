@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel-redefinirSenha</title>
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/fontawesome.css">
+    <link rel="stylesheet" href="../css/animate.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="./css/painel.css" />
+
+</head>
+<body>
+
+    <div class="container-mensagens" id="container-mensagens">
+
+    </div>
+
+    <header class="redefinirSenha">
+        <div class="card card-redefinirSenha">
+
+            <img src="../img/logo.png" width="100" />
+
+            <div class="envioRedefinicao">
+                <div class="container">
+                    <h1 class="title-redefinirSenha"><b>&nbsp;Esqueceu a senha?</b></h1>
+                    <h2 class="title-redefinirSenha">Redefina a senha em duas etapas</h2>
+                </div>
+    
+                <div>
+                    
+                </div>
+                <div class="form-group mb-2 mt-4">
+                    <span class="icon-form-redefinirSenha">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <h2 class="description-redefinirSenha"><b>&nbsp;Digite seu email cadastrado.</b></h2>
+                    <input id="txtEmailredefinirSenha" type="email" class="form-control" placeholder="E-mail" />
+                    
+                    <div class="container-envio">
+                        <a id="btnredefinirSenha" href="#" class="btn btn-yellow btn-redefinirSenha mt-4">
+                            Enviar código
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="confirmacaoRedefinicao hidden">
+                <div class="container">
+                    <h1 class="title-redefinirSenha"><b>Enviamos um codigo ao seu e-mail</b></h1>
+                </div>
+    
+                <div>
+                    
+                </div>
+                <div class="form-group mb-2 mt-4">
+                    <span class="icon-form-redefinirSenha">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                    <h2 class="description-redefinirSenha"><b>&nbsp;Digite o código recebido.</b></h2>
+                    <input id="txtEmailredefinirSenha" type="email" class="form-control" placeholder="Código" />
+                    
+                    <div class="container-envio">
+                        <a id="btnredefinirSenha" onclick="solicitacaoRedefinirSenha()" href="#" class="btn btn-yellow btn-redefinirSenha mt-4">
+                            Enviar código
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+
+
+            
+
+
+            
+        </div>
+    </header>
+
+    <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../js/app.js"></script>
+    <script type="text/javascript" src="./js/redefinirSenha.js"></script>
+
+</body> 
+</html>
