@@ -11,13 +11,13 @@
 
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
 
-- [ ] Responsividade do painel administrativo para dispostivos ate 600px (tablet).
-- [ ] Menu lateral escondido para melhorar o layout da tela em dispositivos ate 600px (tablet).
-- [ ] Criar modal para o cliente escolher o modo de pagamento e para input de troco.
-- [ ] Refatorar icones de todas as paginas.
-- [ ] Bug ao adicionar/remover imagem.
-- [ ] Recursar pedido (Voltar o estagio do pedido).
-- [ ] Envio de notificaçoes para whatsApp do cliente.
+- [ ] Responsividade do painel administrativo para dispostivos ate 600px (tablet). Samuel
+- [ ] Menu lateral escondido para melhorar o layout da tela em dispositivos ate 600px (tablet). Samuel
+- [ ] Criar modal para o cliente escolher o modo de pagamento e para input de troco. Samuel
+- [ ] Refatorar icones de todas as paginas. Samuel
+- [ ] Bug ao adicionar/remover imagem. Matheus
+- [ ] Recursar pedido (Voltar o estagio do pedido). Matheus
+- [ ] Envio de notificaçoes para whatsApp do cliente. Matheus
 
 
 ## 💻 Pré-requisitos
