@@ -95,28 +95,29 @@ app.method = {
     // centraliza as chamadas de post
     upload: (url, dados, callbackSuccess, callbackError, login = false) => {
 
+        // valida o token para acessar o painel
         try {
             if (app.method.validaToken(login)) {
 
-                // document.querySelector.ajax({
-                //     url: url,
-                //     method: 'POST',
-                //     processData: false,
-                //     contentType: false,
-                //     data: dados,
-                //     mimeType: 'multipart/form-data',
-                //     async: true,
-                //     crossDomain: true,
-                //     beforeSend: (request) => { request.setRequestHeader("authorization", app.method.obterValorSessao('token')); },
-                //     success: (response) => callbackSuccess(JSON.parse(response)),
-                //     error: (xhr, ajaxOptions, error) => {
+                document.querySelector.ajax({
+                    url: url,
+                    method: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: dados,
+                    mimeType: 'multipart/form-data',
+                    async: true,
+                    crossDomain: true,
+                    beforeSend: (request) => { request.setRequestHeader("authorization", app.method.obterValorSessao('token')); },
+                    success: (response) => callbackSuccess(JSON.parse(response)),
+                    error: (xhr, ajaxOptions, error) => {
 
-                //         // se o retorno for não autorizado, redireciona o usuário para o login
-                //         if (xhr.status == 401) app.method.logout();
+                        // se o retorno for não autorizado, redireciona o usuário para o login
+                        if (xhr.status == 401) app.method.logout();
 
-                //         callbackError(xhr, ajaxOptions, error)
-                //     },
-                // });
+                        callbackError(xhr, ajaxOptions, error)
+                    },
+                });
 
                 let xhr = new XMLHttpRequest();
                 xhr.open('POST', url, true);
