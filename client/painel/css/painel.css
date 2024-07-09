@@ -977,3 +977,85 @@ p#lblNenhumFaturamento {
     font-size: 18px;
     color: #000;
 }
+
+
+/* RESPONSIVIDADE  */
+@media screen and (max-width: 800px) {
+       
+    .menu-left {
+        width: 170px;
+        padding-left: 2px;
+    }
+    
+    .menu-left .menus {
+        margin-top: 12px;
+    }
+    /* .menus a i {
+        display: none;
+    } */
+    
+    .logo {
+    display: none;
+    }
+    
+    /* a.menu-item {
+        display: block;
+        padding: 12px;
+        color: var(--color-black);
+        text-decoration: none !important;
+    } */
+    
+    a.menu-item i {
+        width: 13px;
+    }
+    
+    .conteudo {
+        padding-left: 170px;
+    }
+    
+    a.menu-item {
+        padding: 15px 1px;
+        color: var(--color-black);
+    }
+        
+ }
+
+ @media screen and (max-width: 400px) {
+       
+    .menu-left {
+        width: 80px;
+        padding-left: 2px;
+    }
+    
+    .menu-left .menus {
+        margin-top: 15px;
+    }
+    /* .menus a i {
+        display: none;
+    } */
+    
+    .logo {
+    display: none;
+    }
+    
+    /* a.menu-item {
+        display: block;
+        padding: 12px;
+        color: var(--color-black);
+        text-decoration: none !important;
+    } */
+    
+    a.menu-item i {
+        width: 5px;
+    }
+    
+    .conteudo {
+        padding-left: 170px;
+    }
+    
+    a.menu-item {
+        padding: 15px 10px;
+        color: var(--color-black);
+    }
+        
+ }
