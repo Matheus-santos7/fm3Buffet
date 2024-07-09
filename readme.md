@@ -15,7 +15,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [ ] Menu lateral escondido para melhorar o layout da tela em dispositivos ate 600px (tablet). Samuel
 - [ ] Criar modal para o cliente escolher o modo de pagamento e para input de troco. Samuel
 - [ ] Refatorar icones de todas as paginas. Samuel
-- [ ] Bug ao adicionar/remover imagem. Matheus
+- [x] Bug ao adicionar/remover imagem. Matheus
 - [ ] Recursar pedido (Voltar o estagio do pedido). Matheus
 - [ ] Envio de notificaçoes para whatsApp do cliente. Matheus
 
