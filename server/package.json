@@ -19,6 +19,7 @@
     "nodemon": "^3.1.0",
     "recursive-readdir": "^2.2.3",
     "restify": "^11.1.0",
-    "restify-eventsource": "^2.0.0"
+    "restify-eventsource": "^2.0.0",
+    "venom-bot": "^5.1.0"
   }
 }
