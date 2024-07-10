@@ -408,6 +408,7 @@ CREATE TABLE `taxaentrega` (
   `tempominimo` int DEFAULT NULL,
   `tempomaximo` int DEFAULT NULL,
   `ativo` int NOT NULL DEFAULT '1',
+  `apagado` int DEFAULT '0',
   PRIMARY KEY (`idtaxaentrega`),
   KEY `FK_TAXA_ENTREGA_TIPO_idx` (`idtaxaentregatipo`),
   CONSTRAINT `FK_TAXA_ENTREGA_TIPO` FOREIGN KEY (`idtaxaentregatipo`) REFERENCES `taxaentregatipo` (`idtaxaentregatipo`)
