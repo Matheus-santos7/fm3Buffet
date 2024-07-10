@@ -14,8 +14,9 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [ ] Responsividade do painel administrativo para dispostivos ate 600px (tablet). Samuel
 - [ ] Menu lateral escondido para melhorar o layout da tela em dispositivos ate 600px (tablet). Samuel
 - [ ] Criar modal para o cliente escolher o modo de pagamento e para input de troco. Samuel
+- [ ] Criar campo input para capturar telefone whatsApp e campo modal para scanear Qr Code do venon-bot.
 - [ ] Refatorar icones de todas as paginas. Samuel
-- [ ] Bug ao adicionar/remover imagem. Matheus
+- [x] Bug ao adicionar/remover imagem. Matheus
 - [ ] Recursar pedido (Voltar o estagio do pedido). Matheus
 - [ ] Envio de notificaçoes para whatsApp do cliente. Matheus
 
