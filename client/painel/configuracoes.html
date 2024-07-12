@@ -32,22 +32,22 @@
 
             <div class="menus">
                 <a href="./home.html" class="menu-item">
-                    <i class="fas fa-home"></i>  Início
+                    <i class="fas fa-home"></i> <span class="hidden-text">Início</span>
                 </a>
                 <a href="./pedidos.html" class="menu-item">
-                    <i class="fas fa-utensils"></i> Pedidos
+                    <i class="fas fa-utensils"></i> <span class="hidden-text">Pedidos</span>
                 </a>
                 <a href="./cardapio.html" class="menu-item">
-                    <i class="fas fa-book-open"></i> Cardápio
+                    <i class="fas fa-book-open"></i> <span class="hidden-text">Cardápio</span>
                 </a>
                 <a href="./configuracoes.html" class="menu-item active">
-                    <i class="fas fa-cog"></i> Config
+                    <i class="fas fa-cog"></i> <span class="hidden-text">Config</span>
                 </a>
                 <a href="./empresa.html" class="menu-item">
-                    <i class="fas fa-building"></i> Empresa
+                    <i class="fas fa-building"></i> <span class="hidden-text">Empresa</span>
                 </a>
                 <a href="./relatorio.html" class="menu-item">
-                    <i class="fas fa-chart-line"></i> Relatório
+                    <i class="fas fa-chart-line"></i> <span class="hidden-text">Relatorio</span>
                 </a>
             </div>
 
@@ -112,7 +112,7 @@
                                         <label class="switch">
                                             <input type="checkbox" id="chkOpcaoRetirada" onchange="config.method.changeOpcaoRetirada()">
                                             <span class="slider round"></span>
-                                            <span class="text mb-0" id="lblSwitchRetirada">Desligado</span>
+                                            <span class="mb-0" id="lblSwitchRetirada">Deslig</span>
                                         </label>
                                     </div>
                                     <div class="tempo disabled" id="containerTempoRetirada">
@@ -125,7 +125,7 @@
                                             <input id="txtTempoMaximoRetirada" type="number" class="form-control" placeholder="00" disabled/>
                                         </div>
                                     </div>
-                                    <a href="#!" class="btn btn-yellow btn-sm ms-4 disabled" id="btnSalvarOpcaoRetirada" onclick="config.method.salvarOpcaoRetirada()">
+                                    <a href="#!" class="btn btn-yellow btn-sm ms-1 disabled" id="btnSalvarOpcaoRetirada" onclick="config.method.salvarOpcaoRetirada()">
                                         <i class="fas fa-check"></i>&nbsp; Salvar
                                     </a>
                                 </div>
@@ -142,7 +142,7 @@
                                         <label class="switch">
                                             <input type="checkbox" id="chkOpcaoDelivery" onchange="config.method.changeOpcaoDelivery()">
                                             <span class="slider round"></span>
-                                            <span class="text mb-0" id="lblSwitchDelivery">Desligado</span>
+                                            <span class="mb-0" id="lblSwitchDelivery">Deslig</span>
                                         </label>
                                     </div>
                                     <div class="tempo disabled" id="containerTempoDelivery">
@@ -155,7 +155,7 @@
                                             <input id="txtTempoMaximoDelivery" type="number" class="form-control" placeholder="00" disabled/>
                                         </div>
                                     </div>
-                                    <a href="#!" class="btn btn-yellow btn-sm ms-4 disabled" id="btnSalvarOpcaoDelivery" onclick="config.method.salvarOpcaoDelivery()">
+                                    <a href="#!" class="btn btn-yellow btn-sm ms-1 disabled" id="btnSalvarOpcaoDelivery" onclick="config.method.salvarOpcaoDelivery()">
                                         <i class="fas fa-check"></i>&nbsp; Salvar
                                     </a>
                                 </div>

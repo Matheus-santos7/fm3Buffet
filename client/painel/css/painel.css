@@ -545,7 +545,8 @@ span.badge-adicionais {
 }
 
 .menus-config a {
-    margin-right: 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
 }
 
 .switch {
@@ -1018,5 +1019,66 @@ p#lblNenhumFaturamento {
         padding: 15px 5px;
         color: var(--color-black);
     }
+        
+ }
+
+ @media screen and (max-width: 400px) {
+       
+    .menu-left {
+        width: 38px;
+        padding-left: 3px;
+    }
+    
+    .menu-left .menus {
+        margin-top: 12px;
+    }
+    
+    .hidden-text, .logo, .img-icon-details {
+        display: none;
+    }
+    
+    a.menu-item i {
+        width: 13px;
+    }
+    
+    .conteudo {
+        padding-left: 33px;
+        padding-right: 1px;
+    }
+    
+    a.menu-item {
+        padding: 15px 5px;
+        color: var(--color-black);
+    }
+a.menu-item.active {
+    background: var(--color-background);
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+a.menu-item.active:before {
+    content: "";
+    position: absolute;
+    background-color: transparent;
+    height: 50px;
+    width: 15px;
+    border-top-left-radius: 25px;
+    box-shadow: 0 -25px 0 0 var(--color-background);
+    rotate: 180deg;
+    right: 0;
+    margin-top: -65px;
+}
+
+a.menu-item.active:after {
+    content: "";
+    position: absolute;
+    background-color: transparent;
+    height: 50px;
+    width: 15px;
+    border-top-right-radius: 25px;
+    box-shadow: 0 -25px 0 0 var(--color-background);
+    right: 0;
+    margin-top: 40px;
+}
         
  }
