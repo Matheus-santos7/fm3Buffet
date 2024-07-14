@@ -19,6 +19,7 @@ config.event = {
 
         $('.money').mask('#.##0,00', { reverse: true });
 
+
     }
 
 }
@@ -45,6 +46,10 @@ config.method = {
 
             case 'forma-pagamento':
                 config.method.obterConfigFormaPagamento();
+                break;
+
+            case 'whatsapp':
+                config.method.obterWhatsApp();
                 break;
 
             default:
@@ -831,110 +836,32 @@ config.method = {
 
     },
 
-    // -------- TAB FORMAS DE PAGAMENTO -----------
+    // -------- TAB WhatsApp -----------
 
-    // obtem as formas de pagamento
-    obterConfigFormaPagamento: () => {
-
-        app.method.loading(true);
-
-        app.method.get('/formapagamento/painel',
+    obterWhatsApp: () => {
+        console.log('Abrindo o modal do QR Code e chamando a função para obter QR Code...');
+        document.querySelector(".QrCode").classList.remove('hidden');
+    
+        app.method.get('/qrCode',
             (response) => {
-
-                app.method.loading(false);
-
-                if (response.status == "error") {
-                    console.log(response.message)
-                    return;
-                }
-
-                console.log(response.data)
-
-                let pix = response.data.filter((e) => { return e.idformapagamento == 1 });
-                let dinheiro = response.data.filter((e) => { return e.idformapagamento == 2 });
-                let cartaocredito = response.data.filter((e) => { return e.idformapagamento == 3 });
-                let cartaodebito = response.data.filter((e) => { return e.idformapagamento == 4 });
-
-                // valida as configs
-                config.method.changeOpcaoFormaPagamento(1, 'pix', pix[0].ativo);
-                config.method.changeOpcaoFormaPagamento(2, 'dinheiro', dinheiro[0].ativo);
-                config.method.changeOpcaoFormaPagamento(3, 'cartaocredito', cartaocredito[0].ativo);
-                config.method.changeOpcaoFormaPagamento(4, 'cartaodebito', cartaodebito[0].ativo);
-
-
-            },
-            (error) => {
-                app.method.loading(false);
-                console.log('error', error)
-            }
-        )
-
-    },
-
-    // clique na forma de pagamento
-    changeOpcaoFormaPagamento: (id, input, isCheck) => {
-
-        let check = document.querySelector("#chkFormaPagamento-" + input).checked;
-
-        if (isCheck != undefined) {
-            check = isCheck;
-        }
-
-        if (check) {
-            document.querySelector("#chkFormaPagamento-" + input).checked = true;
-
-            // valida se é o click no botão
-            if (isCheck == undefined) {
-                config.method.salvarOpcaoFormaPagamento(id, true);
-            }
-
-        }
-        else {
-            document.querySelector("#chkFormaPagamento-" + input).checked = false;
-
-            // valida se é o click no botão
-            if (isCheck == undefined) {
-                config.method.salvarOpcaoFormaPagamento(id, false);
-            }
-        }
-
-
-    },
-
-    // salva a opção de forma de pagamento
-    salvarOpcaoFormaPagamento: (id, ativar) => {
-
-        app.method.loading(true);
-
-        var dados = {
-            forma: id,
-            ativar: ativar ? 1 : 0
-        }
-
-        app.method.post('/formapagamento/ativar', JSON.stringify(dados),
-            (response) => {
-                console.log(response)
-
-                app.method.loading(false);
-
+                console.log(response.data);
+    
                 if (response.status === 'error') {
-                    app.method.mensagem(response.message);
                     return;
                 }
-
-                app.method.mensagem(response.message, 'green');
-
+                console.log(response.data);
+                config.method.gerarQrCode(response.data);
             },
             (error) => {
-                app.method.loading(false);
-                console.log('error', error)
+                console.error('Erro ao obter o QR Code:', error);
             }
-        )
-
-
-    }
-
-
+        );
+    },
+    
+    gerarQrCode: (base64String) => {
+        const qrImage = document.getElementById('qrImage');
+        qrImage.src = base64String;
+    },
 }
 
 config.template = {
