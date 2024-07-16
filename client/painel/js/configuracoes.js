@@ -16,6 +16,7 @@ config.event = {
 
         // inicia a primeira Tab
         config.method.openTab('delivery-retirada');
+        config.method.obterWhatsApp();
 
         $('.money').mask('#.##0,00', { reverse: true });
 
@@ -360,7 +361,7 @@ config.method = {
                 document.querySelector("#chkTaxaDistancia").checked = taxadistancia[0].ativo ? true : false;
 
                 Array.from(document.querySelectorAll(".tab-item-taxa")).forEach(e => e.classList.add('hidden'));
-        
+
                 if (semtaxa[0].ativo) {
                     document.querySelector("#container-sem-taxa").classList.remove('hidden');
                 }
@@ -595,7 +596,7 @@ config.method = {
                 let tempo = '';
                 let acoes = `<a class="dropdown-item" href="#!" onclick="config.method.ativarTaxaDistancia('${e.idtaxaentrega}', 0)"><i class="fas fa-ban"></i>&nbsp; <b>Desativar</b></a>`;
                 let status = '<span class="badge badge-success">Ativado</span>';
-            
+
                 // valida se existe tempo
                 if ((e.tempominimo != null && e.tempominimo != '') && (e.tempomaximo != null && e.tempomaximo != '')) {
                     tempo = `de ${e.tempominimo} a ${e.tempomaximo} min`;
@@ -715,7 +716,7 @@ config.method = {
         }
 
         let dados = {
-            distancia: distancia, 
+            distancia: distancia,
             valor: valor,
             tempominimo: tempominimo,
             tempomaximo: tempomaximo
@@ -836,32 +837,60 @@ config.method = {
 
     },
 
+     // -------- TAB FORMAS DE PAGAMENTO -----------
+
+    // obtem as formas de pagamento
+    obterConfigFormaPagamento: () => {
+    },
+
+    // clique na forma de pagamento
+    changeOpcaoFormaPagamento: (id, input, isCheck) => {
+    },
+
+    // salva a opção de forma de pagamento
+    salvarOpcaoFormaPagamento: (id, ativar) => {
+    },
+
+
     // -------- TAB WhatsApp -----------
 
     obterWhatsApp: () => {
-        console.log('Abrindo o modal do QR Code e chamando a função para obter QR Code...');
-        document.querySelector(".QrCode").classList.remove('hidden');
-    
+        console.log('Inicializando o WhatsApp');
         app.method.get('/qrCode',
             (response) => {
-                console.log(response.data);
-    
                 if (response.status === 'error') {
                     return;
                 }
-                console.log(response.data);
-                config.method.gerarQrCode(response.data);
+                app.method.gravarValorSessao(response.data,'qrCode');
             },
             (error) => {
                 console.error('Erro ao obter o QR Code:', error);
             }
         );
     },
-    
-    gerarQrCode: (base64String) => {
-        const qrImage = document.getElementById('qrImage');
-        qrImage.src = base64String;
+
+    exibirModalQrCode: (checkbox) => {
+        if (checkbox.checked) {
+            console.log('Botão está ativado');
+            config.method.gerarQrCode();
+            $('#modalQrCode').modal('show'); // Abre o modal usando jQuery
+        } else {
+            console.log('Botão está desativado');
+            // Outras ações quando o botão está desativado
+        }
     },
+
+    //fechar modal
+    fecharModalQrCode: () => {
+        $('#modalQrCode').modal('hide');
+    },
+
+    gerarQrCode: () => {
+        var qrcodegerado = app.method.obterValorSessao('qrCode');
+        const qrImage = document.getElementById('qrImage');
+        qrImage.src = qrcodegerado;
+    },
+
 }
 
 config.template = {

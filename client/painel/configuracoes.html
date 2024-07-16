@@ -21,7 +21,7 @@
     </div>
 
     <div class="loader-full animated fadeIn hidden">
-        <img src="../img/loader.png" width="100" class="animated pulse infinite" />
+        <img src="../img/loader.png" alt="loader" width="100" class="animated pulse infinite" />
     </div>
 
     <section class="bg-menu">
@@ -29,16 +29,12 @@
         <div class="menu-left">
 
             <div class="logo">
-                <img class="logo-empresa" width="100">
+                <img class="logo-empresa" alt="logo-empresa" width="100">
             </div>
 
             <div class="menus">
                 <a href="./home.html" class="menu-item">
-<<<<<<< HEAD
-                    <i class="fas fa-home"></i> Início
-=======
                     <i class="fas fa-home"></i> <span class="hidden-text">Início</span>
->>>>>>> 8bc4350b0be0ac289e557204af32eebe48eeb01a
                 </a>
                 <a href="./pedidos.html" class="menu-item">
                     <i class="fas fa-utensils"></i> <span class="hidden-text">Pedidos</span>
@@ -47,11 +43,7 @@
                     <i class="fas fa-book-open"></i> <span class="hidden-text">Cardápio</span>
                 </a>
                 <a href="./configuracoes.html" class="menu-item active">
-<<<<<<< HEAD
                     <i class="fas fa-cog"></i> Configurações
-=======
-                    <i class="fas fa-cog"></i> <span class="hidden-text">Config</span>
->>>>>>> 8bc4350b0be0ac289e557204af32eebe48eeb01a
                 </a>
                 <a href="./empresa.html" class="menu-item">
                     <i class="fas fa-building"></i> <span class="hidden-text">Empresa</span>
@@ -147,9 +139,10 @@
                                     </div>
                                     <a href="#!" class="btn btn-yellow btn-sm ms-4 disabled" id="btnSalvarOpcaoRetirada"
                                         onclick="config.method.salvarOpcaoRetirada()">
-                                    <a href="#!" class="btn btn-yellow btn-sm ms-1 disabled" id="btnSalvarOpcaoRetirada" onclick="config.method.salvarOpcaoRetirada()">
-                                        <i class="fas fa-check"></i>&nbsp; Salvar
-                                    </a>
+                                        <a href="#!" class="btn btn-yellow btn-sm ms-1 disabled"
+                                            id="btnSalvarOpcaoRetirada" onclick="config.method.salvarOpcaoRetirada()">
+                                            <i class="fas fa-check"></i>&nbsp; Salvar
+                                        </a>
                                 </div>
 
                             </div>
@@ -182,12 +175,8 @@
                                                 placeholder="00" disabled />
                                         </div>
                                     </div>
-<<<<<<< HEAD
-                                    <a href="#!" class="btn btn-yellow btn-sm ms-4 disabled" id="btnSalvarOpcaoDelivery"
+                                    <a href="#!" class="btn btn-yellow btn-sm ms-1 disabled" id="btnSalvarOpcaoDelivery"
                                         onclick="config.method.salvarOpcaoDelivery()">
-=======
-                                    <a href="#!" class="btn btn-yellow btn-sm ms-1 disabled" id="btnSalvarOpcaoDelivery" onclick="config.method.salvarOpcaoDelivery()">
->>>>>>> 8bc4350b0be0ac289e557204af32eebe48eeb01a
                                         <i class="fas fa-check"></i>&nbsp; Salvar
                                     </a>
                                 </div>
@@ -420,28 +409,23 @@
                         </div>
 
                         <div class="col-12 mt-5 tab-item hidden" id="whatsApp">
-                                <div class="container-group mb-3">
-                                    <div class="card card-address cursor-default mt-3">
-                                        <div class="img-icon-details">
-                                            <i class="fas fa-check"></i>
-                                        </div>
-                                        <div class="infos mt-4">
-                                            <p class="name mb-1"><b>Conectar o WhatsApp para envio de mensagens automática</b></p>
-                                            <p class="name mt-1">Conectado</p>
-                                        </div>
-                                        <label class="switch">
-                                            <!-- Alteração no ID para um identificador adequado -->
-                                            <input type="checkbox" id="toggleWhatsApp" onchange="config.method.obterWhatsApp()">
-                                            <span class="slider round"></span>
-                                        </label>
+                            <div class="container-group mb-3">
+                                <div class="card card-address cursor-default mt-3">
+                                    <div class="img-icon-details">
+                                        <i class="fas fa-check"></i>
                                     </div>
-                                </div>
-                                <div class="container-group mb-3">
-                                    <div class="card card-address cursor-default mt-3 QrCode hidden" id="QrCode">
-                                        <!-- Alteração no ID da imagem do QR Code -->
-                                        <img src="#" alt="QrCode" id="qrImage">
+                                    <div class="infos mt-4">
+                                        <p class="name mb-1"><strong>Conectar o WhatsApp para envio de mensagens
+                                                automático</strong></p>
+                                        <p class="name mt-1">Status: <span id="whatsappStatus">Desconectado</span></p>
                                     </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="toggleWhatsApp"
+                                            onchange="config.method.exibirModalQrCode(this)">
+                                        <span class="slider round"></span>
+                                    </label>
                                 </div>
+                            </div>
                         </div>
 
                     </div>
@@ -451,8 +435,24 @@
 
         </div>
 
-
     </section>
+    <!-- Modal para exibir o QR Code do WhatsApp Web -->
+    <!-- Modal para exibir o QR Code do WhatsApp Web -->
+    <div class="modal fade" id="modalQrCode" tabindex="-1" role="dialog" aria-labelledby="modalQrCodeLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header d-flex flex-column">
+                    <h5 class="modal-title" id="modalQrCodeLabel">Conectar ao WhatsApp Web</h5>
+                    <a href="#" onclick="config.method.fecharModalQrCode()"><span class="icon-form-close p-10"><i
+                                class="fas fa-times"></i></span></a>
+                    <p class="mt-4"><strong>Escaneie o QR Code abaixo para conectar ao WhatsApp Web</strong></p>
+                    <img src="#" alt="QrCode" id="qrImage">
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <!-- Modal de confirmação para Remover a Taxa por Distancia -->
@@ -486,6 +486,8 @@
             </div>
         </div>
     </div>
+
+
 
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/jquery.mask.js"></script>

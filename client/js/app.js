@@ -24,22 +24,22 @@ app.method = {
                 xhr.setRequestHeader("Authorization", app.method.obterValorSessao('token'));
 
                 xhr.onreadystatechange = function () {
-
+                    
                     if (this.readyState == 4) {
 
                         if (this.status == 200) {
                             return callbackSuccess(JSON.parse(xhr.responseText))
                         }
                         else {
-
+    
                             // se o retorno for não autorizado, redireciona o usuário para o login
                             if (xhr.status == 401) app.method.logout();
-
+    
                             return callbackError(xhr.responseText);
-                        }
+                        } 
 
-                    }
-
+                    } 
+                    
                 }
 
                 xhr.send();
@@ -64,22 +64,22 @@ app.method = {
                 xhr.setRequestHeader("Authorization", app.method.obterValorSessao('token'));
 
                 xhr.onreadystatechange = function () {
-
+                    
                     if (this.readyState == 4) {
 
                         if (this.status == 200) {
                             return callbackSuccess(JSON.parse(xhr.responseText))
                         }
                         else {
-
+    
                             // se o retorno for não autorizado, redireciona o usuário para o login
                             if (xhr.status == 401) app.method.logout();
-
+    
                             return callbackError(xhr.responseText);
-                        }
+                        } 
 
-                    }
-
+                    } 
+                    
                 }
 
                 xhr.send(dados);
@@ -95,32 +95,61 @@ app.method = {
     // centraliza as chamadas de post
     upload: (url, dados, callbackSuccess, callbackError, login = false) => {
 
-        // valida o token para acessar o painel
         try {
             if (app.method.validaToken(login)) {
+
+                // document.querySelector.ajax({
+                //     url: url,
+                //     method: 'POST',
+                //     processData: false,
+                //     contentType: false,
+                //     data: dados,
+                //     mimeType: 'multipart/form-data',
+                //     async: true,
+                //     crossDomain: true,
+                //     beforeSend: (request) => { request.setRequestHeader("authorization", app.method.obterValorSessao('token')); },
+                //     success: (response) => callbackSuccess(JSON.parse(response)),
+                //     error: (xhr, ajaxOptions, error) => {
+
+                //         // se o retorno for não autorizado, redireciona o usuário para o login
+                //         if (xhr.status == 401) app.method.logout();
+
+                //         callbackError(xhr, ajaxOptions, error)
+                //     },
+                // });
+
                 let xhr = new XMLHttpRequest();
                 xhr.open('POST', url, true);
+                xhr.setRequestHeader("Mime-Type", 'multipart/form-data');
                 xhr.setRequestHeader("Authorization", app.method.obterValorSessao('token'));
 
-                xhr.onload = function () {
-                    if (xhr.status >= 200 && xhr.status < 300) {
-                        callbackSuccess(JSON.parse(xhr.responseText));
-                    } else {
-                        // se o retorno for não autorizado, redireciona o usuário para o login
-                        if (xhr.status == 401) app.method.logout();
-                        callbackError(xhr, xhr.statusText, new Error('Failed to upload'));
-                    }
-                };
+                xhr.onreadystatechange = function () {
+                    
+                    if (this.readyState == 4) {
 
-                xhr.onerror = function () {
-                    callbackError(xhr, xhr.statusText, new Error('Failed to upload'));
-                };
+                        if (this.status == 200) {
+                            return callbackSuccess(JSON.parse(xhr.responseText))
+                        }
+                        else {
+    
+                            // se o retorno for não autorizado, redireciona o usuário para o login
+                            if (xhr.status == 401) app.method.logout();
+    
+                            return callbackError(xhr.responseText);
+                        } 
+
+                    } 
+                    
+                }
 
                 xhr.send(dados);
+
             }
-        } catch (ex) {
-            callbackError(ex);
         }
+        catch (ex) {
+            return callbackError(ex);
+        }
+
     },
 
     // método para validar se o token existe. É chamado em todas as requisições internas
@@ -169,7 +198,7 @@ app.method = {
         if (container.childElementCount === 3) {
             return;
         }
-
+        
         let id = Math.floor(Date.now() * Math.random()).toString();
 
         let msg = `<div id="msg-${id}" class="animated fadeInDown toast ${cor}">${texto}</div>`;
@@ -232,7 +261,7 @@ app.method = {
                     document.querySelector(".status-open").classList.remove('closed');
                     document.querySelector("#lblLojaAberta").innerText = 'Aberto';
                 }
-
+                
                 document.querySelector("#menu-bottom").classList.remove('hidden');
                 document.querySelector("#menu-bottom-closed").remove();
 
@@ -259,7 +288,7 @@ app.method = {
         else {
             document.querySelector(".logo-empresa").src = '/public/images/empresa/default.jpg';
         }
-
+        
 
     },
 
@@ -269,7 +298,6 @@ app.method = {
             (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
         );
     },
-
     // Função para verificar se o email tem o formato correto
     isValidEmail: (email) => {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
