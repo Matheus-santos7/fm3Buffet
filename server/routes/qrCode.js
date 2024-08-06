@@ -4,7 +4,15 @@ const Acesso = new UsuarioTokenAcesso();
 
 module.exports = (server) => {
     server.get('/qrCode', async (req, res) => {
-        console.log('Route /qrCode called'); // Log para verificar se a rota está sendo chamada
         await ct.qrCode(req, res);
     });
+
+    server.get('/qrCode/status', async (req, res) => {
+        await ct.status(req, res);
+    });
+
+    server.post('/qrCode/removeSession', async (req, res) => {
+        await ct.removeSession(req, res);
+    });
 };
+

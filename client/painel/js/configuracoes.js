@@ -7,6 +7,7 @@ var config = {};
 var TAXA_UNICA_ID = 0;
 var TAXA_DISTANCIA_SELECIONADA = 0;
 
+
 config.event = {
 
     init: () => {
@@ -16,9 +17,10 @@ config.event = {
 
         // inicia a primeira Tab
         config.method.openTab('delivery-retirada');
-        config.method.obterWhatsApp();
 
         $('.money').mask('#.##0,00', { reverse: true });
+
+        config.method.iniciarMonitoramentoConexao();
 
 
     }
@@ -837,7 +839,7 @@ config.method = {
 
     },
 
-     // -------- TAB FORMAS DE PAGAMENTO -----------
+    // -------- TAB FORMAS DE PAGAMENTO -----------
 
     // obtem as formas de pagamento
     obterConfigFormaPagamento: () => {
@@ -852,46 +854,101 @@ config.method = {
     },
 
 
-    // -------- TAB WhatsApp -----------
-
+    // -------- TAB WHATSAPP -----------
     obterWhatsApp: () => {
-        console.log('Inicializando o WhatsApp');
-        app.method.get('/qrCode',
-            (response) => {
-                if (response.status === 'error') {
-                    return;
+        return new Promise((resolve, reject) => {
+            console.log('Inicializando o WhatsApp');
+            app.method.get('/qrCode',
+                (response) => {
+                    if (response.status === 'error') {
+                        reject('Erro ao obter o QR Code');
+                    } else {
+                        app.method.gravarValorSessao(response.data, 'qrCode');
+                        resolve(response.data);
+                    }
+                },
+                (error) => {
+                    console.error('Erro ao obter o QR Code:', error);
+                    reject(error);
                 }
-                app.method.gravarValorSessao(response.data,'qrCode');
+            );
+        });
+    },
+
+    exibirModalQrCode: async (checkbox) => {
+        app.method.loading(true); // Exibe o loading
+        try {
+            await config.method.obterWhatsApp();
+            const qrCode = app.method.obterValorSessao('qrCode');
+            if (qrCode) {
+                $('#modalQrCode').modal('show');
+                config.method.gerarQrCode(qrCode);
+                config.method.verificarStatusConexao(); // Verifica o status da conexão imediatamente
+            } else {
+                console.error('QR Code não encontrado na sessão');
+            }
+        } catch (error) {
+            console.error('Erro ao obter o QR Code:', error);
+        } finally {
+            app.method.loading(false); // Esconde o loading independentemente do sucesso ou falha
+        }
+    },
+
+    verificarStatusConexao: () => {
+        app.method.get('/qrCode/status',
+            (response) => {
+                const status = response.data.status;
+                console.log('Status da conexão:', status);
+                const statusElement = $('#whatsappStatus');
+
+                if (status === 'successChat') {
+                    app.method.mensagem('Conexão estabelecida.', 'green');
+                    config.method.fecharModalQrCode();
+                    // Atualizar o status da conexão para Conectado
+                    statusElement.text('Conectado');
+                    statusElement.removeClass('text-danger').addClass('text-success');
+                } else {
+                    app.method.mensagem('Conexão não estabelecida.', 'red');
+                    // Atualizar o status da conexão para Desconectado
+                    statusElement.text('Desconectado');
+                    statusElement.removeClass('text-success').addClass('text-danger');
+                }
             },
             (error) => {
-                console.error('Erro ao obter o QR Code:', error);
+                console.log('Erro ao verificar status da conexão:', error);
+                app.method.mensagem('Erro ao verificar status da conexão.', 'red');
+                // Atualizar o status da conexão para Desconectado em caso de erro
+                const statusElement = $('#whatsappStatus');
+                statusElement.text('Desconectado');
+                statusElement.removeClass('text-success').addClass('text-danger');
             }
         );
     },
 
-    exibirModalQrCode: (checkbox) => {
-        if (checkbox.checked) {
-            console.log('Botão está ativado');
-            config.method.gerarQrCode();
-            $('#modalQrCode').modal('show'); // Abre o modal usando jQuery
-        } else {
-            console.log('Botão está desativado');
-            // Outras ações quando o botão está desativado
-        }
-    },
 
-    //fechar modal
     fecharModalQrCode: () => {
         $('#modalQrCode').modal('hide');
     },
 
-    gerarQrCode: () => {
-        var qrcodegerado = app.method.obterValorSessao('qrCode');
+    removerQrCode: () => {
+        app.method.removerSessao('qrCode');
+    },
+
+    gerarQrCode: (qrCodeData) => {
         const qrImage = document.getElementById('qrImage');
-        qrImage.src = qrcodegerado;
+        qrImage.src = qrCodeData;
+    },
+
+    // Configurar o intervalo para verificar o status da conexão periodicamente
+    iniciarMonitoramentoConexao: (intervalo = 30000) => {
+        setInterval(config.method.verificarStatusConexao, intervalo);
     },
 
 }
+
+const intervalo = 30000;
+config.method.verificarStatusConexao();
+setInterval(config.method.verificarStatusConexao, intervalo);
 
 config.template = {
 

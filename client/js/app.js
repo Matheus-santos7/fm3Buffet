@@ -5,7 +5,6 @@ app.event = {
     init: (home = false) => {
 
         app.method.validarEmpresaAberta(home);
-
     }
 
 }
@@ -24,22 +23,22 @@ app.method = {
                 xhr.setRequestHeader("Authorization", app.method.obterValorSessao('token'));
 
                 xhr.onreadystatechange = function () {
-                    
+
                     if (this.readyState == 4) {
 
                         if (this.status == 200) {
                             return callbackSuccess(JSON.parse(xhr.responseText))
                         }
                         else {
-    
+
                             // se o retorno for não autorizado, redireciona o usuário para o login
                             if (xhr.status == 401) app.method.logout();
-    
-                            return callbackError(xhr.responseText);
-                        } 
 
-                    } 
-                    
+                            return callbackError(xhr.responseText);
+                        }
+
+                    }
+
                 }
 
                 xhr.send();
@@ -64,22 +63,22 @@ app.method = {
                 xhr.setRequestHeader("Authorization", app.method.obterValorSessao('token'));
 
                 xhr.onreadystatechange = function () {
-                    
+
                     if (this.readyState == 4) {
 
                         if (this.status == 200) {
                             return callbackSuccess(JSON.parse(xhr.responseText))
                         }
                         else {
-    
+
                             // se o retorno for não autorizado, redireciona o usuário para o login
                             if (xhr.status == 401) app.method.logout();
-    
-                            return callbackError(xhr.responseText);
-                        } 
 
-                    } 
-                    
+                            return callbackError(xhr.responseText);
+                        }
+
+                    }
+
                 }
 
                 xhr.send(dados);
@@ -98,25 +97,25 @@ app.method = {
         try {
             if (app.method.validaToken(login)) {
 
-                // document.querySelector.ajax({
-                //     url: url,
-                //     method: 'POST',
-                //     processData: false,
-                //     contentType: false,
-                //     data: dados,
-                //     mimeType: 'multipart/form-data',
-                //     async: true,
-                //     crossDomain: true,
-                //     beforeSend: (request) => { request.setRequestHeader("authorization", app.method.obterValorSessao('token')); },
-                //     success: (response) => callbackSuccess(JSON.parse(response)),
-                //     error: (xhr, ajaxOptions, error) => {
+                document.querySelector.ajax({
+                    url: url,
+                    method: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: dados,
+                    mimeType: 'multipart/form-data',
+                    async: true,
+                    crossDomain: true,
+                    beforeSend: (request) => { request.setRequestHeader("authorization", app.method.obterValorSessao('token')); },
+                    success: (response) => callbackSuccess(JSON.parse(response)),
+                    error: (xhr, ajaxOptions, error) => {
 
-                //         // se o retorno for não autorizado, redireciona o usuário para o login
-                //         if (xhr.status == 401) app.method.logout();
+                        // se o retorno for não autorizado, redireciona o usuário para o login
+                        if (xhr.status == 401) app.method.logout();
 
-                //         callbackError(xhr, ajaxOptions, error)
-                //     },
-                // });
+                        callbackError(xhr, ajaxOptions, error)
+                    },
+                });
 
                 let xhr = new XMLHttpRequest();
                 xhr.open('POST', url, true);
@@ -124,22 +123,22 @@ app.method = {
                 xhr.setRequestHeader("Authorization", app.method.obterValorSessao('token'));
 
                 xhr.onreadystatechange = function () {
-                    
+
                     if (this.readyState == 4) {
 
                         if (this.status == 200) {
                             return callbackSuccess(JSON.parse(xhr.responseText))
                         }
                         else {
-    
+
                             // se o retorno for não autorizado, redireciona o usuário para o login
                             if (xhr.status == 401) app.method.logout();
-    
-                            return callbackError(xhr.responseText);
-                        } 
 
-                    } 
-                    
+                            return callbackError(xhr.responseText);
+                        }
+
+                    }
+
                 }
 
                 xhr.send(dados);
@@ -172,8 +171,6 @@ app.method = {
 
     // retorna o token atual
     obterValorSessao: (local) => {
-
-        // Valores Sessão -> [token] [nomeUsuario]
         return localStorage[local];
 
     },
@@ -198,7 +195,7 @@ app.method = {
         if (container.childElementCount === 3) {
             return;
         }
-        
+
         let id = Math.floor(Date.now() * Math.random()).toString();
 
         let msg = `<div id="msg-${id}" class="animated fadeInDown toast ${cor}">${texto}</div>`;
@@ -261,7 +258,7 @@ app.method = {
                     document.querySelector(".status-open").classList.remove('closed');
                     document.querySelector("#lblLojaAberta").innerText = 'Aberto';
                 }
-                
+
                 document.querySelector("#menu-bottom").classList.remove('hidden');
                 document.querySelector("#menu-bottom-closed").remove();
 
@@ -288,7 +285,7 @@ app.method = {
         else {
             document.querySelector(".logo-empresa").src = '/public/images/empresa/default.jpg';
         }
-        
+
 
     },
 
@@ -298,8 +295,18 @@ app.method = {
             (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
         );
     },
+
     // Função para verificar se o email tem o formato correto
     isValidEmail: (email) => {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
+    },
+
+    // Função para monitorar o comportamento do usuário
+    monitor: () => {
+        console.log('Monitorando comportamento do usuário...');
+        const userData = {
+            timestamp: new Date(),
+        };
+        console.log(userData);
+    },
 }
