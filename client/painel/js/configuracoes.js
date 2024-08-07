@@ -895,36 +895,66 @@ config.method = {
     },
 
     verificarStatusConexao: () => {
-        app.method.get('/qrCode/status',
+        app.method.get('/qrCode/status', 
             (response) => {
-                const status = response.data.status;
-                console.log('Status da conexão:', status);
+                const { status } = response.data;
                 const statusElement = $('#whatsappStatus');
-
-                if (status === 'successChat') {
-                    app.method.mensagem('Conexão estabelecida.', 'green');
-                    config.method.fecharModalQrCode();
-                    // Atualizar o status da conexão para Conectado
-                    statusElement.text('Conectado');
-                    statusElement.removeClass('text-danger').addClass('text-success');
-                } else {
-                    app.method.mensagem('Conexão não estabelecida.', 'red');
-                    // Atualizar o status da conexão para Desconectado
-                    statusElement.text('Desconectado');
-                    statusElement.removeClass('text-success').addClass('text-danger');
+                let mensagem, statusClasse, statusTexto;
+    
+                switch (status) {
+                    case 'successChat':
+                        mensagem = 'Conexão estabelecida.';
+                        statusTexto = 'Conectado';
+                        statusClasse = 'text-success';
+                        config.method.fecharModalQrCode();
+                        break;
+                    case 'notLogged':
+                        mensagem = 'Conexão não estabelecida.';
+                        statusTexto = 'Desconectado';
+                        statusClasse = 'text-danger';
+                        config.method.removerQrCode();
+                        break;
+                    case 'waitForLogin':
+                        mensagem = 'Conexão não estabelecida. Aguardando login.';
+                        statusTexto = 'Desconectado';
+                        statusClasse = 'text-danger';
+                        config.method.removerQrCode();
+                        config.method.obterWhatsApp();
+                        config.method.gerarQrCode();
+                        break;
+                    case 'desconnectedMobile':
+                        mensagem = 'Conexão não estabelecida. Dispositivo móvel desconectado.';
+                        statusTexto = 'Desconectado';
+                        statusClasse = 'text-danger';
+                        config.method.removerQrCode();
+                        break;
+                    case 'successPageWhatsapp':
+                        mensagem = 'Conexão não estabelecida. Escaneie o QR Code.';
+                        statusTexto = 'Conectado';
+                        statusClasse = 'text-success';
+                        config.method.removerQrCode();
+                        break;
+                    default:
+                        mensagem = 'Conexão não estabelecida.';
+                        statusTexto = 'Desconectado';
+                        statusClasse = 'text-danger';
+                        break;
                 }
+    
+                app.method.mensagem(mensagem, statusClasse === 'text-success' ? 'green' : 'red');
+                statusElement.text(statusTexto).removeClass('text-success text-danger').addClass(statusClasse);
             },
             (error) => {
                 console.log('Erro ao verificar status da conexão:', error);
                 app.method.mensagem('Erro ao verificar status da conexão.', 'red');
-                // Atualizar o status da conexão para Desconectado em caso de erro
-                const statusElement = $('#whatsappStatus');
-                statusElement.text('Desconectado');
-                statusElement.removeClass('text-success').addClass('text-danger');
+                $('#whatsappStatus')
+                    .text('Desconectado')
+                    .removeClass('text-success')
+                    .addClass('text-danger');
             }
         );
     },
-
+    
 
     fecharModalQrCode: () => {
         $('#modalQrCode').modal('hide');

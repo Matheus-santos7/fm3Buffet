@@ -14,5 +14,9 @@ module.exports = (server) => {
     server.post('/qrCode/removeSession', async (req, res) => {
         await ct.removeSession(req, res);
     });
+
+    server.post('/qrCode/sendMessage', async (req, res) => {
+        await ct.sendMessage(req, res);
+    });
 };
 

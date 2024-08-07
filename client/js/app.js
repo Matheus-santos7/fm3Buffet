@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function (event) {
+    config.event.init();
+});
+
 var app = {};
 
 app.event = {
@@ -299,14 +303,5 @@ app.method = {
     // Função para verificar se o email tem o formato correto
     isValidEmail: (email) => {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    },
-
-    // Função para monitorar o comportamento do usuário
-    monitor: () => {
-        console.log('Monitorando comportamento do usuário...');
-        const userData = {
-            timestamp: new Date(),
-        };
-        console.log(userData);
     },
 }
