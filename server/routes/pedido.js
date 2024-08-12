@@ -1,4 +1,4 @@
-const ct = require('../controllers/pedido')
+const ct = require('../controllers/pedido.js')
 const UsuarioTokenAcesso = require('../common/protecaoAcesso');
 const Acesso = new UsuarioTokenAcesso();
 

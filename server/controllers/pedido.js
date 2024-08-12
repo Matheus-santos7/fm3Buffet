@@ -315,13 +315,9 @@ const controllers = () => {
 
     // atualiza o status do pedido
     const atualizarStatusPedido = async (req) => {
-
         try {
-
             if (req.body.tab == 5) {
-
                 // finalizar pedido
-
                 var ComandoSQL = await readCommandSql.retornaStringSql('atualizarStatusPedidoFinalizado', 'pedido');
                 await db.Query(ComandoSQL, { idpedidostatus: req.body.tab, idpedido: req.body.idpedido });
             }
@@ -329,12 +325,10 @@ const controllers = () => {
                 var ComandoSQL = await readCommandSql.retornaStringSql('atualizarStatusPedido', 'pedido');
                 await db.Query(ComandoSQL, { idpedidostatus: req.body.tab, idpedido: req.body.idpedido });
             }
-
             return {
                 status: 'success',
                 message: 'Pedido atualizado com sucesso!'
             }
-
         } catch (ex) {
             console.log(ex);
             return {

@@ -42,7 +42,7 @@ pedido.method = {
                     return;
                 }
 
-                console.log(response.data);
+                // console.log(response.data);
 
                 // carrega a lista de pedidos na tela
                 pedido.method.carregarPedidos(response.data);
@@ -66,6 +66,9 @@ pedido.method = {
             // percorre os pedidos e adiciona na tela
             lista.forEach((e, i) => {
 
+                // let telefoneCliente = e.telefonecliente || 'Telefone não disponível';
+                // console.log(telefoneCliente);
+
                 let btnAcoes = ``;
                 let titleBtn = '';
                 let acoesPai = `<div class="dropdown-menu" aria-labelledby="menuAcoes">\${acoes}</div>`
@@ -82,34 +85,35 @@ pedido.method = {
                 if (e.idpedidostatus == 1) {
                     titleBtn = 'Pendente';
                     acoes = `
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(2, '${e.idpedido}')">Mover para <b>Aceito</b> <i class="far fa-thumbs-up"></i></a>
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(3, '${e.idpedido}')">Mover para <b>Em preparo</b> <i class="far fa-clock"></i></a>
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(4, '${e.idpedido}')">Mover para <b>Em entrega</b> <i class="fas fa-motorcycle"></i></a>
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(5, '${e.idpedido}')">Mover para <b>Concluído</b> <i class="far fa-check-circle"></i></a>
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(6, '${e.idpedido}')">Recusar Pedido <i class="far fa-times-circle"></i></a>`
-                }
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(2, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Aceito</b> <i class="far fa-thumbs-up"></i></a>
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(3, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Em preparo</b> <i class="far fa-clock"></i></a>
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(4, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Em entrega</b> <i class="fas fa-motorcycle"></i></a>
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(5, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Concluído</b> <i class="far fa-check-circle"></i></a>
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(6, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Recusar Pedido <i class="far fa-times-circle"></i></a>
+                        `
+                    }
                 else if (e.idpedidostatus == 2) {
                     titleBtn = 'Aceito';
                     acoes = `
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(3, '${e.idpedido}')">Mover para <b>Em preparo</b> <i class="far fa-clock"></i></a>
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(4, '${e.idpedido}')">Mover para <b>Em entrega</b> <i class="fas fa-motorcycle"></i></a>
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(5, '${e.idpedido}')">Mover para <b>Concluído</b> <i class="far fa-check-circle"></i></a>
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(6, '${e.idpedido}')">Recusar Pedido <i class="far fa-times-circle"></i></a>
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(3, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Em preparo</b> <i class="far fa-clock"></i></a>
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(4, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Em entrega</b> <i class="fas fa-motorcycle"></i></a>
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(5, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Concluído</b> <i class="far fa-check-circle"></i></a>
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(6, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Recusar Pedido <i class="far fa-times-circle"></i></a>
                     `
                 }
                 else if (e.idpedidostatus == 3) {
                     titleBtn = 'Em preparo';
                     acoes = `
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(4, '${e.idpedido}')">Mover para <b>Em entrega</b> <i class="fas fa-motorcycle"></i></a>
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(5, '${e.idpedido}')">Mover para <b>Concluído</b> <i class="far fa-check-circle"></i></a>
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(6, '${e.idpedido}')">Recusar Pedido <i class="far fa-times-circle"></i></a>
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(4, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Em entrega</b> <i class="fas fa-motorcycle"></i></a>
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(5, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Concluído</b> <i class="far fa-check-circle"></i></a>
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(6, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Recusar Pedido <i class="far fa-times-circle"></i></a>
                     `
                 }
                 else if (e.idpedidostatus == 4) {
                     titleBtn = 'Em entrega';
                     acoes = `
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(5, '${e.idpedido}')">Mover para <b>Concluído</b> <i class="far fa-check-circle"></i></a>
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(6, '${e.idpedido}')">Recusar Pedido <i class="far fa-times-circle"></i></a>
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(5, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Concluído</b> <i class="far fa-check-circle"></i></a>
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(6, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Recusar Pedido <i class="far fa-times-circle"></i></a>
                     `
                 }
 
@@ -409,47 +413,73 @@ pedido.method = {
 
     },
 
-    // mode o pedido para outra tab
-    moverPara: (target, idpedido) => {
+    moverPara: (target, idpedido, telefonecliente, nomecliente) => {
 
-        // se for recusar, abre a modal de confirmação
-        if (parseInt(target) == 6) {
+        // Se for recusar, abre a modal de confirmação
+        if (parseInt(target) === 6) {
             return;
         }
-
-        var dados = {
-            tab: target,
-            idpedido: idpedido
+    
+        // Formatar o telefoneCliente
+        telefonecliente = telefonecliente.replace(/[^\d]/g, '');
+        if (telefonecliente.length === 11) {
+            telefonecliente = `55${telefonecliente}`;
         }
-
+        telefonecliente = `${telefonecliente}@c.us`;
+    
+        const dados = {
+            tab: target,
+            idpedido: idpedido,
+            telefonecliente: telefonecliente,
+            nomecliente: nomecliente
+        };
+    
+        console.log('dados', dados);
+    
         app.method.loading(true);
-
-        app.method.post('/pedido/mover', JSON.stringify(dados),
+    
+        // Atualiza o status do pedido
+        app.method.post(
+            '/pedido/mover',
+            JSON.stringify(dados),
             (response) => {
-                console.log(response)
-
-                app.method.loading(false);
-
+                console.log(response);
+    
                 if (response.status === 'error') {
                     app.method.mensagem(response.message);
-                    return;
+                } else {
+                    app.method.mensagem(response.message, 'green');
+                    pedido.method.atualizarLista();
+    
+                    // Envia a mensagem via WhatsApp se o pedido for aceito (supondo que 2 é o código para "aceito")
+                    if (parseInt(target) === 2) {
+                        const mensagem = `Olá ${nomecliente}, seu pedido ${idpedido} foi aceito e está em processamento.`;
+                        app.method.post(
+                            '/qrCode/sendMessage',
+                            JSON.stringify({ phoneNumber: telefonecliente, message: mensagem }),
+                            (msgResponse) => {
+                                console.log(msgResponse);
+                            },
+                            (msgError) => {
+                                console.error('Erro ao enviar mensagem:', msgError);
+                            }
+                        );
+                    }
+    
+                    // Fecha a modal de detalhes se estiver aberta
+                    MODAL_DETALHES.hide();
                 }
-
-                app.method.mensagem(response.message, 'green');
-
-                pedido.method.atualizarLista();
-
-                // fecha a modal de detalhes se estiver aberta
-                MODAL_DETALHES.hide();
-
             },
             (error) => {
-                app.method.loading(false);
-                console.log('error', error)
+                console.error('Erro ao atualizar o pedido:', error);
+                app.method.mensagem('Erro ao atualizar o pedido. Por favor, tente novamente.');
             }
-        )
-
+        );
+    
+        app.method.loading(false);
     },
+    
+
 
     // método chamado para atualizar a lista de acordo com a tab selecionada
     atualizarLista: () => {

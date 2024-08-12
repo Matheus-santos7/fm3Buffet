@@ -73,6 +73,7 @@ SELECT
     , p.idtipoentrega
     , p.idformapagamento
     , p.nomecliente
+    , p.telefonecliente
     , p.datacadastro
     , p.datafinalizado
     , p.total
