@@ -1,8 +1,3 @@
-/**
- * Módulo de controladores para operações relacionadas à empresa.
- * @module controllers/empresa
- */
-
 const AcessoDados = require('../db/acessodados.js');
 const db = new AcessoDados();
 const ReadCommandSql = require('../common/readCommandSql.js');
@@ -12,21 +7,19 @@ const Acesso = new UsuarioTokenAcesso();
 
 const controllers = () => {
 
-    /**
-     * Obtém os dados da empresa.
-     * @async
-     * @function obterDados
-     * @param {Object} req - Objeto de requisição.
-     * @returns {Object} - Resultado da operação.
-     */
+    // Obtem os dados da empresa
     const obterDados = async (req) => {
+
         try {
+
             var ComandoSQL = await readCommandSql.retornaStringSql('obterDados', 'empresa');
             var result = await db.Query(ComandoSQL);
+
             return {
                 status: 'success',
                 data: result,
             }
+
         } catch (ex) {
             console.log(ex);
             return {
@@ -34,26 +27,27 @@ const controllers = () => {
                 message: 'Falha ao obter os dados da empresa.'
             }
         }
+
     }
 
-    /**
-     * Valida se a empresa está aberta no momento da requisição.
-     * @async
-     * @function validarEmpresaAberta
-     * @param {Object} req - Objeto de requisição.
-     * @returns {Object} - Resultado da operação.
-     */
+    // Obtem os dados da empresa
     const validarEmpresaAberta = async (req) => {
+
         try {
+
             var ComandoSQL = await readCommandSql.retornaStringSql('obterHorarios', 'horario');
             var horarios = await db.Query(ComandoSQL);
 
             if (horarios != undefined && horarios.length > 0) {
+
                 let dataAtual = new Date();
                 let diaSemana = dataAtual.getDay();
                 let listaDias = [];
 
                 horarios.forEach((e, i) => {
+
+                    console.log('HORARIO', e);
+
                     if (e.diainicio < e.diafim) {
                         for (let dia = e.diainicio; dia <= e.diafim; dia++) {
                             listaDias.push({
@@ -64,7 +58,8 @@ const controllers = () => {
                                 fimhorariodois: e.fimhorariodois
                             });
                         }
-                    } else if (e.diainicio > e.diafim) {
+                    }
+                    else if (e.diainicio > e.diafim) {
                         for (let dia = e.diafim; dia <= e.diainicio; dia++) {
                             listaDias.push({
                                 diaSemana: dia,
@@ -74,7 +69,8 @@ const controllers = () => {
                                 fimhorariodois: e.fimhorariodois
                             });
                         }
-                    } else if (e.diainicio == e.diafim) {
+                    }
+                    else if (e.diainicio == e.diafim) {
                         listaDias.push({
                             diaSemana: e.diainicio,
                             iniciohorarioum: e.iniciohorarioum,
@@ -83,11 +79,17 @@ const controllers = () => {
                             fimhorariodois: e.fimhorariodois
                         });
                     }
+
                 });
 
                 let existe = listaDias.find((elem) => { return elem.diaSemana == diaSemana; });
 
+                console.log('listaDias', listaDias)
+                console.log('existe', existe)
+
                 if (existe != undefined) {
+
+                    // faz a validação do horario
                     let horarioAtual = dataAtual.getTime();
                     let diaAtual = dataAtual.getDate();
                     let mesAtual = dataAtual.getMonth() + 1;
@@ -101,22 +103,32 @@ const controllers = () => {
                     let fimhorarioum = existe.fimhorarioum != null ? new Date(`${anoAtual}-${mesAtual}-${diaAtual} ${existe.fimhorarioum}:00`).getTime() : null;
                     let fimhorariodois = existe.fimhorariodois != null ? new Date(`${anoAtual}-${mesAtual}-${diaAtual} ${existe.fimhorariodois}:00`).getTime() : null;
 
+                    console.log('iniciohorarioum', iniciohorarioum)
+                    console.log('iniciohorariodois', iniciohorariodois)
+                    console.log('fimhorarioum', fimhorarioum)
+                    console.log('fimhorariodois', fimhorariodois)
+
+                    // se exite o horário, valida se está aberto
                     if (iniciohorarioum != null && fimhorarioum != null) {
+
                         if (horarioAtual >= iniciohorarioum && horarioAtual <= fimhorarioum) {
                             return {
                                 status: 'success',
                                 data: true
                             }
                         }
+
                     }
 
                     if (iniciohorariodois != null && fimhorariodois != null) {
+
                         if (horarioAtual >= iniciohorariodois && horarioAtual <= fimhorariodois) {
                             return {
                                 status: 'success',
                                 data: true
                             }
                         }
+
                     }
 
                     return {
@@ -124,20 +136,25 @@ const controllers = () => {
                         message: 'Estabelecimento fechado.',
                         data: false
                     }
-                } else {
+
+                }
+                else {
                     return {
                         status: 'error',
                         message: 'Estabelecimento fechado.',
                         data: false
                     }
                 }
-            } else {
+
+            }
+            else {
                 return {
                     status: 'error',
                     message: 'Estabelecimento fechado.',
                     data: false
                 }
             }
+
         } catch (ex) {
             console.log(ex);
             return {
@@ -146,23 +163,22 @@ const controllers = () => {
                 data: false
             }
         }
+
     }
 
-    /**
-     * Obtém os dados completos da empresa.
-     * @async
-     * @function obterDadosCompletos
-     * @param {Object} req - Objeto de requisição.
-     * @returns {Object} - Resultado da operação.
-     */
+    // Obtem os dados da empresa
     const obterDadosCompletos = async (req) => {
+
         try {
+
             var ComandoSQL = await readCommandSql.retornaStringSql('obterDadosCompletos', 'empresa');
             var result = await db.Query(ComandoSQL);
+
             return {
                 status: 'success',
                 data: result,
             }
+
         } catch (ex) {
             console.log(ex);
             return {
@@ -170,27 +186,30 @@ const controllers = () => {
                 message: 'Falha ao obter os dados da empresa.'
             }
         }
+
     }
 
-    /**
-     * Salva os dados da empresa.
-     * @async
-     * @function salvarDadosSobre
-     * @param {Object} req - Objeto de requisição.
-     * @returns {Object} - Resultado da operação.
-     */
+    // Salva os dados da empresa
     const salvarDadosSobre = async (req) => {
+
         try {
+
+            // obtem a empresa logada
             let _empresaId = Acesso.retornaCodigoTokenAcesso('IdEmpresa', req.headers['authorization']);
+
             req.body.idempresa = _empresaId;
 
             var ComandoSQL = await readCommandSql.retornaStringSql('salvarDadosSobre', 'empresa');
             var result = await db.Query(ComandoSQL, req.body);
 
+            console.log(result);
+
             return {
                 status: "success",
                 message: "Dados atualizados com sucesso!"
             }
+
+
         } catch (ex) {
             return {
                 status: "error",
@@ -198,27 +217,30 @@ const controllers = () => {
                 ex: ex
             }
         }
+
     }
 
-    /**
-     * Salva os dados do endereço da empresa.
-     * @async
-     * @function salvarDadosEndereco
-     * @param {Object} req - Objeto de requisição.
-     * @returns {Object} - Resultado da operação.
-     */
+    // Salva os dados do endereço da empresa
     const salvarDadosEndereco = async (req) => {
+
         try {
+
+            // obtem a empresa logada
             let _empresaId = Acesso.retornaCodigoTokenAcesso('IdEmpresa', req.headers['authorization']);
+
             req.body.idempresa = _empresaId;
 
             var ComandoSQL = await readCommandSql.retornaStringSql('salvarDadosEndereco', 'empresa');
             var result = await db.Query(ComandoSQL, req.body);
 
+            console.log(result);
+
             return {
                 status: "success",
                 message: "Dados atualizados com sucesso!"
             }
+
+
         } catch (ex) {
             return {
                 status: "error",
@@ -226,15 +248,17 @@ const controllers = () => {
                 ex: ex
             }
         }
+
     }
 
     return Object.create({
-        obterDados,
-        validarEmpresaAberta,
-        obterDadosCompletos,
-        salvarDadosSobre,
-        salvarDadosEndereco
+        obterDados
+        , validarEmpresaAberta
+        , obterDadosCompletos
+        , salvarDadosSobre
+        , salvarDadosEndereco
     })
+
 }
 
 module.exports = Object.assign({ controllers })

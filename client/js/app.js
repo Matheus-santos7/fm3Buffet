@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-    config.event.init();
 });
 
 var app = {};
