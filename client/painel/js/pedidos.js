@@ -529,7 +529,7 @@ pedido.template = {
                         <p class="info-pedido">
                             <i class="\${formapagamentoicon}"></i>
                             \${formapagamento}
-                            <span>\${formapagamentodesc}</span>
+                            <span class="mt-2">\${formapagamentodesc}</span>
                         </p>
                     </div>
                     <div class="separate mb-2"></div>
