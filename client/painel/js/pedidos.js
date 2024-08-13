@@ -517,7 +517,7 @@ pedido.template = {
                     <p class="numero-pedido mt-2">#\${idpedido}</p>
                 </div>
                 <div class="card-content" onclick="pedido.method.abrirModalDetalhes('\${idpedido}')">
-                    <div class="card-pedido-body mt-3">
+                    <div class="card-pedido-body mt-3 mb-4">
                         <p class="info-pedido">
                             <i class="fas fa-user"></i>
                             \${nome}
@@ -532,7 +532,7 @@ pedido.template = {
                             <span>\${formapagamentodesc}</span>
                         </p>
                     </div>
-                    <div class="separate"></div>
+                    <div class="separate mb-2"></div>
                     
                     <div class="card-pedido-footer">
                         <p class="horario-pedido">\${datahora}</p>

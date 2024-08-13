@@ -270,6 +270,9 @@ p.info-pedido {
     font-size: 16px;
     margin-bottom: 10px;
     color: var(--color-black);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .info-pedido i {
@@ -346,7 +349,7 @@ p.total-pedido {
 }
 
 .card-pedido-body {
-    height: 120px;
+    height: 130px;
 }
 
 /* MODAL DETALHES*/
