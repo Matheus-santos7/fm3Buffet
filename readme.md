@@ -18,7 +18,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [ ] Refatorar icones de todas as paginas. Samuel
 - [x] Bug ao adicionar/remover imagem. Matheus
 - [ ] Recursar pedido (Voltar o estagio do pedido). Matheus
-- [ ] Envio de notificaçoes para whatsApp do cliente. Matheus
+- [x] Envio de notificaçoes para whatsApp do cliente. Matheus
 
 
 ## 💻 Pré-requisitos
