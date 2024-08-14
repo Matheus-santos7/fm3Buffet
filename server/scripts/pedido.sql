@@ -141,6 +141,12 @@ WHERE idpedido = @idpedido
 
 --END#atualizarStatusPedidoFinalizado#
 
+--INIT#atualizarStatusPedidoRecusado#
+UPDATE pedido 
+SET idpedidostatus = 6, recusado=1, datafinalizado = CURRENT_TIMESTAMP()
+WHERE idpedido = @idpedido
+--END#atualizarStatusPedidoRecusado#
+
 
 --INIT#historicoPedidos#
 

@@ -368,6 +368,37 @@ const controllers = () => {
 
     }
 
+    // Função assíncrona para recusar um pedido
+    const recusarPedido = async (req) => {
+        const idpedido = req.params.idpedido;
+
+        try {
+            // Obtém a string SQL para atualizar o status do pedido para "recusado"
+            const ComandoSQL = await readCommandSql.retornaStringSql('atualizarStatusPedidoRecusado', 'pedido');
+            if (!ComandoSQL) {
+                throw new Error("Comando SQL não retornado.");
+            }
+
+            // Executa a consulta no banco de dados para atualizar o status do pedido
+            await db.Query(ComandoSQL, { idpedidostatus: 6, idpedido: idpedido });
+
+            // Retorna uma resposta de sucesso
+            return {
+                status: 'success',
+                message: 'Pedido recusado com sucesso!'
+            };
+        } catch (ex) {
+            // Loga o erro no console para análise
+            console.error("Erro ao executar a função recusarPedido:", ex);
+
+            // Retorna uma resposta de erro ao cliente
+            return {
+                status: 'error',
+                message: 'Falha ao recusar pedido. Por favor, tente novamente.'
+            };
+        }
+    }
+
     return Object.create({
         calcularTaxaDelivery
         , salvarPedido
@@ -375,6 +406,7 @@ const controllers = () => {
         , obterPedidoPorStatus
         , atualizarStatusPedido
         , historicoPedidos
+        , recusarPedido
     })
 
 }

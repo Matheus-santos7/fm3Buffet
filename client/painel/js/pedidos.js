@@ -1,17 +1,25 @@
+// Cria um objeto vazio chamado 'pedido'
 var pedido = {};
 
+// Inicializa um modal de detalhes usando o Bootstrap, associando-o ao elemento com o ID 'modalDetalhes'
 var MODAL_DETALHES = new bootstrap.Modal(document.getElementById('modalDetalhes'));
 
+// Define um objeto 'event' dentro do objeto 'pedido'
 pedido.event = {
 
+    // Define um método 'init' dentro de 'pedido.event'
     init: () => {
 
+        // Chama o método 'validaToken' do objeto 'app.method' para validar o token de autenticação
         app.method.validaToken();
+        
+        // Chama o método 'carregarDadosEmpresa' do objeto 'app.method' para carregar os dados da empresa
         app.method.carregarDadosEmpresa();
 
-        // inicia a primeira Tab
+        // Abre a primeira aba (tab) com o identificador 'pendentes' e índice 1
         pedido.method.openTab('pendentes', 1);
 
+        // Define um intervalo que chama o método 'atualizarLista' a cada 10 segundos
         setInterval(() => {
             pedido.method.atualizarLista()
         }, 10000); // atualiza a cada 10 segundos
@@ -22,37 +30,46 @@ pedido.event = {
 
 pedido.method = {
 
-    // método para carregar as tabs
+    // Método para carregar as tabs
     openTab: (tab, n) => {
-
+    
+        // Remove a classe 'active' de todos os elementos com a classe 'tab-content'
         Array.from(document.querySelectorAll(".tab-content")).forEach(e => e.classList.remove('active'));
-
+    
+        // Adiciona a classe 'active' ao elemento específico da tab selecionada
         document.querySelector("#tab-" + tab).classList.add('active');
+        
+        // Limpa o conteúdo do elemento com o ID 'lista-pedidos'
         document.querySelector("#lista-pedidos").innerHTML = '';
-
+    
+        // Ativa o indicador de carregamento
         app.method.loading(true);
-
+    
+        // Faz uma requisição GET para obter os dados do painel de pedidos
         app.method.get('/pedido/painel/' + n,
             (response) => {
-
+    
+                // Desativa o indicador de carregamento
                 app.method.loading(false);
-
+    
+                // Verifica se a resposta indica um erro
                 if (response.status == "error") {
+                    // Loga a mensagem de erro no console
                     console.log(response.message)
                     return;
                 }
-
-                // console.log(response.data);
-
-                // carrega a lista de pedidos na tela
+    
+                // Carrega a lista de pedidos na tela com os dados recebidos
                 pedido.method.carregarPedidos(response.data);
-
-                // carrega os totais nas tabs
+    
+                // Carrega os totais nas tabs com os dados recebidos
                 pedido.method.carregarTotais(response.totais);
-
+    
             },
             (error) => {
+                // Desativa o indicador de carregamento em caso de erro
                 app.method.loading(false);
+                // Loga o erro no console
                 console.log('error', error)
             }
         )
@@ -425,15 +442,13 @@ pedido.method = {
             idpedido: idpedido,
         };
 
-        console.log('dados', dados);
+        // console.log('dados', dados);
 
         // Atualiza o status do pedido
         app.method.post(
             '/pedido/mover',
             JSON.stringify(dados),
             (response) => {
-                console.log(response);
-
                 if (response.status === 'error') {
                     app.method.mensagem(response.message);
                 } else {
@@ -442,9 +457,8 @@ pedido.method = {
 
                     // Envia a mensagem via WhatsApp se o pedido for aceito (supondo que 2 é o código para "aceito")
                     if (parseInt(target) === 2) {
-                        pedido.method.confirmarMoverAceito(idpedido);
+                        pedido.method.confirmarPedidoAceito(idpedido);
                     }
-
                     // Fecha a modal de detalhes se estiver aberta
                     MODAL_DETALHES.hide();
                 }
@@ -454,14 +468,10 @@ pedido.method = {
                 app.method.mensagem('Erro ao atualizar o pedido. Por favor, tente novamente.');
             }
         );
-
-        app.method.loading(false);
     },
 
     // confirmacao de aceitar ou recusar pedido
-    confirmarMoverAceito: (idpedido) => {
-
-        console.log('confirmarMoverAceito', idpedido);
+    confirmarPedidoAceito: (idpedido) => {
 
         // Busca os dados do pedido
         app.method.get('/pedido/' + idpedido,
@@ -482,18 +492,20 @@ pedido.method = {
 
                 // Monta a mensagem de confirmação com cabeçalho e rodapé
                 const mensagem =
-                `==============================\n*RESUMO DO PEDIDO*\n==============================
+`==============================\n*RESUMO DO PEDIDO*\n==============================
 
-            *Cliente:* ${info.nomecliente}
-            *Pedido Nº:* ${idpedido}
+*Cliente:* ${info.nomecliente}
+*Pedido Nº:* ${idpedido}
 
-                Seu pedido está em processamento. Em breve, enviaremos mais detalhes, incluindo possíveis descontos.
+Seu pedido está aceito. Confirme os detalhes abaixo, em caso de dúvidas, entre em contato conosco.
+Segue nosso PIX para pagamento antecipado: 125.044.476-47 (CPF - MATHEUS DOS SANTOS GONÇALVES - BANCO: ITAU), manda o comprovante no WhatsApp.
 
-                ==============================\n*DETALHES DO PEDIDO*\n==============================${resumoDoPedido}
+==============================\n*DETALHES DO PEDIDO*\n==============================${resumoDoPedido}
 
-                ==============================\n*TOTAL PEDIDO:* R$${items.reduce((total, item) => total + (item.quantidade * item.valor), 0).toFixed(2)}\n==========
+==============================\n*TOTAL PEDIDO:* R$${items.reduce((total, item) => total + (item.quantidade * item.valor), 0).toFixed(2)}\n==========
 
-                Obrigado pelo seu pedido! Estamos à disposição para qualquer dúvida.`;
+Caso deseje cancelar o pedido, por favor, nos avise o quanto antes.
+Obrigado pelo seu pedido! Estamos à disposição para qualquer dúvida.`;
 
                 // console.log('mensagem', mensagem);
 
@@ -513,7 +525,7 @@ pedido.method = {
             '/qrCode/sendMessage',
             JSON.stringify({ phoneNumber : telefonecliente, message: mensagem }),
             (response) => {
-                console.log(mensagem,response);
+                // console.log(mensagem,response);
             },
             (error) => {
                 console.error('Erro ao enviar mensagem via WhatsApp:', error);
@@ -521,7 +533,6 @@ pedido.method = {
             }
         );
     },
-
     // método chamado para atualizar a lista de acordo com a tab selecionada
     atualizarLista: () => {
 
@@ -541,7 +552,12 @@ pedido.method = {
             pedido.method.openTab('entrega', 4);
         }
 
-    }
+    },
+
+    // método para recusar pedido
+    recursarPedido: (idpedido) => {
+        
+    },
 
 }
 

@@ -22,13 +22,21 @@ module.exports = (server) => {
         res.send(result);
     });
 
+    // obtem o pedido do painel por id
     server.get('/pedido/painel/:idpedidostatus', Acesso.verificaTokenAcesso, async (req, res) => {
         const result = await ct.controllers().obterPedidoPorStatus(req);
         res.send(result);
     });
 
+    // obtem o pedido por id
     server.post('/pedido/mover', Acesso.verificaTokenAcesso, async (req, res) => {
         const result = await ct.controllers().atualizarStatusPedido(req);
+        res.send(result);
+    });
+
+    // recursar pedido
+    server.post('/pedido/recusar/:idpedido', async (req, res) => {
+        const result = await ct.controllers().recusarPedido(req);
         res.send(result);
     });
 
@@ -37,4 +45,6 @@ module.exports = (server) => {
         const result = await ct.controllers().historicoPedidos(req);
         res.send(result);
     });
+
+
 }
