@@ -91,7 +91,7 @@ pedido.method = {
                         <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(5, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Concluído</b> <i class="far fa-check-circle"></i></a>
                         <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(6, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Recusar Pedido <i class="far fa-times-circle"></i></a>
                         `
-                    }
+                }
                 else if (e.idpedidostatus == 2) {
                     titleBtn = 'Aceito';
                     acoes = `
@@ -413,59 +413,38 @@ pedido.method = {
 
     },
 
-    moverPara: (target, idpedido, telefonecliente, nomecliente) => {
+    moverPara: (target, idpedido) => {
 
         // Se for recusar, abre a modal de confirmação
         if (parseInt(target) === 6) {
             return;
         }
-    
-        // Formatar o telefoneCliente
-        telefonecliente = telefonecliente.replace(/[^\d]/g, '');
-        if (telefonecliente.length === 11) {
-            telefonecliente = `55${telefonecliente}`;
-        }
-        telefonecliente = `${telefonecliente}@c.us`;
-    
+
         const dados = {
             tab: target,
             idpedido: idpedido,
-            telefonecliente: telefonecliente,
-            nomecliente: nomecliente
         };
-    
+
         console.log('dados', dados);
-    
-        app.method.loading(true);
-    
+
         // Atualiza o status do pedido
         app.method.post(
             '/pedido/mover',
             JSON.stringify(dados),
             (response) => {
                 console.log(response);
-    
+
                 if (response.status === 'error') {
                     app.method.mensagem(response.message);
                 } else {
                     app.method.mensagem(response.message, 'green');
                     pedido.method.atualizarLista();
-    
+
                     // Envia a mensagem via WhatsApp se o pedido for aceito (supondo que 2 é o código para "aceito")
                     if (parseInt(target) === 2) {
-                        const mensagem = `Olá ${nomecliente}, seu pedido ${idpedido} foi aceito e está em processamento.`;
-                        app.method.post(
-                            '/qrCode/sendMessage',
-                            JSON.stringify({ phoneNumber: telefonecliente, message: mensagem }),
-                            (msgResponse) => {
-                                console.log(msgResponse);
-                            },
-                            (msgError) => {
-                                console.error('Erro ao enviar mensagem:', msgError);
-                            }
-                        );
+                        pedido.method.confirmarMoverAceito(idpedido);
                     }
-    
+
                     // Fecha a modal de detalhes se estiver aberta
                     MODAL_DETALHES.hide();
                 }
@@ -475,11 +454,73 @@ pedido.method = {
                 app.method.mensagem('Erro ao atualizar o pedido. Por favor, tente novamente.');
             }
         );
-    
+
         app.method.loading(false);
     },
-    
 
+    // confirmacao de aceitar ou recusar pedido
+    confirmarMoverAceito: (idpedido) => {
+
+        console.log('confirmarMoverAceito', idpedido);
+
+        // Busca os dados do pedido
+        app.method.get('/pedido/' + idpedido,
+            (response) => {
+                const info = response.data;
+                const items = response.cart;
+
+                // Formatar o telefoneCliente
+                const telefonecliente = app.method.isValidPhone(info.telefonecliente)
+                
+                // Formata o resumo do pedido com espaçamento e separadores
+                const resumoDoPedido = items.map(item =>
+                    `\n**Item:** ${item.nome}` +
+                    `\n**Quantidade:** ${item.quantidade}` +
+                    `\n**Valor Unitário:** R$${item.valor.toFixed(2)}` +
+                    `\n**Total:** R$${(item.quantidade * item.valor).toFixed(2)}\n`
+                ).join('\n------------------------------\n');
+
+                // Monta a mensagem de confirmação com cabeçalho e rodapé
+                const mensagem =
+                `==============================\n*RESUMO DO PEDIDO*\n==============================
+
+            *Cliente:* ${info.nomecliente}
+            *Pedido Nº:* ${idpedido}
+
+                Seu pedido está em processamento. Em breve, enviaremos mais detalhes, incluindo possíveis descontos.
+
+                ==============================\n*DETALHES DO PEDIDO*\n==============================${resumoDoPedido}
+
+                ==============================\n*TOTAL PEDIDO:* R$${items.reduce((total, item) => total + (item.quantidade * item.valor), 0).toFixed(2)}\n==========
+
+                Obrigado pelo seu pedido! Estamos à disposição para qualquer dúvida.`;
+
+                // console.log('mensagem', mensagem);
+
+                // Envia a mensagem via WhatsApp
+                pedido.method.enviarMensagem(telefonecliente, mensagem);
+            },
+            (error) => {
+                console.log('error', error);
+            }
+        );
+    },
+
+    // Envia a mensagem via WhatsApp
+    enviarMensagem: (telefonecliente, mensagem) => {
+
+        app.method.post(
+            '/qrCode/sendMessage',
+            JSON.stringify({ phoneNumber : telefonecliente, message: mensagem }),
+            (response) => {
+                console.log(mensagem,response);
+            },
+            (error) => {
+                console.error('Erro ao enviar mensagem via WhatsApp:', error);
+                app.method.mensagem('Erro ao enviar mensagem via WhatsApp. Por favor, tente novamente.');
+            }
+        );
+    },
 
     // método chamado para atualizar a lista de acordo com a tab selecionada
     atualizarLista: () => {

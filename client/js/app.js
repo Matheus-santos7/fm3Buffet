@@ -303,4 +303,16 @@ app.method = {
     isValidEmail: (email) => {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     },
+
+    // Função para verificar se o telefone tem o formato correto
+    isValidPhone: (telefonecliente) => {
+        // Formatar o telefoneCliente
+        telefonecliente = telefonecliente.replace(/[^\d]/g, '');
+        if (telefonecliente.length === 11) {
+            telefonecliente = `55${telefonecliente}`;
+        }
+        phoneCliente = `${telefonecliente}@c.us`;
+
+        return phoneCliente
+    },
 }
