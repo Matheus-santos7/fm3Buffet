@@ -11,14 +11,20 @@
 
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
 
-- [ ] Responsividade do painel administrativo para dispostivos ate 600px (tablet). Samuel
-- [ ] Menu lateral escondido para melhorar o layout da tela em dispositivos ate 600px (tablet). Samuel
-- [ ] Criar modal para o cliente escolher o modo de pagamento e para input de troco. Samuel
-- [ ] Criar campo input para capturar telefone whatsApp e campo modal para scanear Qr Code do venon-bot.
-- [ ] Refatorar icones de todas as paginas. Samuel
-- [x] Bug ao adicionar/remover imagem. Matheus
-- [ ] Recursar pedido (Voltar o estagio do pedido). Matheus
-- [x] Envio de notificaçoes para whatsApp do cliente. Matheus
+ - [ ] Responsividade do painel administrativo: Ajustar o layout para dispositivos com largura de até 600px (tablet). Responsável: Samuel.
+ - [ ] Menu lateral oculto: Implementar um menu lateral que seja automaticamente escondido em dispositivos com largura de até 600px para otimizar o layout. Responsável: Samuel.
+ - [ ] Refatoração de ícones: Atualizar e padronizar os ícones em todas as páginas. Responsável: Samuel.
+ - [ ] Modal de pagamento: Desenvolver um modal para que o cliente escolha o método de pagamento e insira o valor do troco.
+ - [ ] Informação de entrega e recolhimento: Adicionar um campo para exibir a data de entrega dos materiais e o recolhimento.
+ - [ ] Melhoria na mensagem de confirmação: Ajustar a mensagem de confirmação de pedido para incluir detalhes de pagamento via Pix, enviando o código Pix apenas se aplicável.
+
+### Finalizados
+- [x] Bug ao adicionar/remover imagem. Matheus.
+- [x] Envio de notificaçoes para whatsApp do cliente. Matheus.
+- [x] Campo para WhatsApp e QR Code: Criar um campo de entrada para capturar o número de telefone do WhatsApp e um modal para escanear o QR Code do Venom-bot. Matheus
+- [x] Confirmar pedido e enviar mensagem para o cliente. Matheus.
+- [x] Recusa de pedido: Implementar a funcionalidade para recusar pedidos, retornando-os ao estágio anterior. Responsável: Matheus.
+
 
 
 ## 💻 Pré-requisitos
