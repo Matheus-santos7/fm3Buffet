@@ -3,6 +3,7 @@ var pedido = {};
 
 // Inicializa um modal de detalhes usando o Bootstrap, associando-o ao elemento com o ID 'modalDetalhes'
 var MODAL_DETALHES = new bootstrap.Modal(document.getElementById('modalDetalhes'));
+// var MODAL_RECUSAR = new bootstrap.Modal(document.getElementById('modalRecusarPedido'));
 
 // Define um objeto 'event' dentro do objeto 'pedido'
 pedido.event = {
@@ -106,7 +107,7 @@ pedido.method = {
                         <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(3, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Em preparo</b> <i class="far fa-clock"></i></a>
                         <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(4, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Em entrega</b> <i class="fas fa-motorcycle"></i></a>
                         <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(5, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Concluído</b> <i class="far fa-check-circle"></i></a>
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(6, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Recusar Pedido <i class="far fa-times-circle"></i></a>
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.recusarPedido(6, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Recusar Pedido <i class="far fa-times-circle"></i></a>
                         `
                 }
                 else if (e.idpedidostatus == 2) {
@@ -115,7 +116,7 @@ pedido.method = {
                         <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(3, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Em preparo</b> <i class="far fa-clock"></i></a>
                         <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(4, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Em entrega</b> <i class="fas fa-motorcycle"></i></a>
                         <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(5, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Concluído</b> <i class="far fa-check-circle"></i></a>
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(6, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Recusar Pedido <i class="far fa-times-circle"></i></a>
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.recusarPedido(6, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Recusar Pedido <i class="far fa-times-circle"></i></a>
                     `
                 }
                 else if (e.idpedidostatus == 3) {
@@ -123,14 +124,14 @@ pedido.method = {
                     acoes = `
                         <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(4, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Em entrega</b> <i class="fas fa-motorcycle"></i></a>
                         <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(5, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Concluído</b> <i class="far fa-check-circle"></i></a>
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(6, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Recusar Pedido <i class="far fa-times-circle"></i></a>
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.recusarPedido(6, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Recusar Pedido <i class="far fa-times-circle"></i></a>
                     `
                 }
                 else if (e.idpedidostatus == 4) {
                     titleBtn = 'Em entrega';
                     acoes = `
                         <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(5, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Mover para <b>Concluído</b> <i class="far fa-check-circle"></i></a>
-                        <a class="dropdown-item" href="#!" onclick="pedido.method.moverPara(6, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Recusar Pedido <i class="far fa-times-circle"></i></a>
+                        <a class="dropdown-item" href="#!" onclick="pedido.method.recusarPedido(6, '${e.idpedido}', '${e.telefonecliente}', '${e.nomecliente}')">Recusar Pedido <i class="far fa-times-circle"></i></a>
                     `
                 }
 
@@ -315,7 +316,9 @@ pedido.method = {
             // só exibe o botão se o status for diferente de conlcuido e recusado
 
             if (data.idpedidostatus == 1) {
-                document.querySelector("#container-action-footer").innerHTML = `<button onclick="pedido.method.moverPara(2, '${idpedido}')" type="button" class="btn btn-yellow btn-sm">Aceitar Pedido</button>`;
+                document.querySelector("#container-action-footer").innerHTML = `
+                <button onclick="pedido.method.recusarPedido(6, '${idpedido}')" type="button" class="btn btn-red btn-sm">Recusar Pedido</button>
+                <button onclick="pedido.method.moverPara(2, '${idpedido}')" type="button" class="btn btn-yellow btn-sm">Aceitar Pedido</button>`;
             }
             if (data.idpedidostatus == 2) {
                 document.querySelector("#container-action-footer").innerHTML = `<button onclick="pedido.method.moverPara(3, '${idpedido}')" type="button" class="btn btn-yellow btn-sm">Preparar Pedido</button>`;
@@ -533,6 +536,15 @@ Obrigado pelo seu pedido! Estamos à disposição para qualquer dúvida.`;
             }
         );
     },
+    
+    //método para recusar pedido
+    recusarPedido: (idpedido) => {
+        //abrir modal de confirmação
+        pedido.method.abrirModalRecusarPedido(idpedido);
+
+    },
+
+
     // método chamado para atualizar a lista de acordo com a tab selecionada
     atualizarLista: () => {
 
@@ -556,8 +568,39 @@ Obrigado pelo seu pedido! Estamos à disposição para qualquer dúvida.`;
 
     // método para recusar pedido
     recursarPedido: (idpedido) => {
-        
+
+        // abre a modal de confirmação
     },
+
+        // abre a modal de detalhes do pedido
+        abrirModalRecusarPedido: (idpedido) => {
+
+            MODAL_DETALHES.hide();
+            MODAL_RECUSAR.show();
+    
+            // app.method.loading(true);
+    
+            // app.method.get('/pedido/' + idpedido,
+            //     (response) => {
+    
+            //         console.log(response)
+            //         app.method.loading(false);
+    
+            //         if (response.status == "error") {
+            //             console.log(response.message)
+            //             return;
+            //         }
+    
+            //         pedido.method.carregarModalDetalhes(response.data, idpedido, response.cart)
+    
+            //     },
+            //     (error) => {
+            //         console.log('error', error)
+            //         app.method.loading(false);
+            //     }, true
+            // )
+    
+        },
 
 }
 
