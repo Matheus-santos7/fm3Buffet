@@ -17,7 +17,7 @@ jobs:
         uses: docker/setup-buildx-action@v3  # Atualizado para v3
 
       - name: Log in to Docker Hub
-        run: echo "1101M@theus" | docker login -u "theussm" --password-stdin
+        run: echo "${{secrets.DOCKER_PASSWORD}}" | docker login -u "${{secrets.DOCKER_USERNAME}}" --password-stdin
 
       - name: Build and push Docker image
         run: |
