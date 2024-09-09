@@ -8,7 +8,7 @@ var config = {
             host: '92.113.39.169',
             port: 3306,
             user: 'admin',
-            password: '1101Matheuss',
+            password: '1101M@theuss',
             database: 'deliveryOnline'
         },
     }
