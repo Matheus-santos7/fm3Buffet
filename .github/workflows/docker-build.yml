@@ -3,34 +3,27 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - main  # ou a branch que você deseja monitorar
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Fazer checkout do código
       - name: Check out the code
-        uses: actions/checkout@v3  # Certifique-se de estar usando a versão mais recente
+        uses: actions/checkout@v3
 
-      # Configurar Docker Buildx
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3  # Atualizado para v3
+        uses: docker/setup-buildx-action@v3
 
-      # Logar no Docker Hub com --username
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Construir e enviar a imagem Docker com tags
       - name: Build and push Docker image
         run: |
-          # Construir a imagem com o commit SHA como tag para uma identificação única
-          docker build --platform linux/amd64 -t theussm/fm3buffet:${{ github.sha }} .
-          
-          # Taguear também como "latest"
-          docker tag theussm/fm3buffet:${{ github.sha }} theussm/fm3buffet:latest
-          
-          # Enviar ambas as tags para o Docker Hub
-          docker push theussm/fm3buffet:${{ github.sha }}
+          docker build --platform linux/amd64 -t theussm/fm3buffet:latest .
           docker push theussm/fm3buffet:latest
