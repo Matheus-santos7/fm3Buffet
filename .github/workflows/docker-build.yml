@@ -10,12 +10,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout do código
       - name: Check out the code
         uses: actions/checkout@v3
 
+      # Configuração do Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      # Verificar os valores das variáveis de ambiente (opcional, para debug)
+      - name: Debug secrets
+        run: |
+          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}"
+          echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" | head -c 20
+
+      # Login no Docker Hub
       - name: Log in to Docker Hub
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username "${{ secrets.DOCKER_USERNAME }}" --password-stdin
@@ -23,6 +32,7 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
+      # Construção e envio da imagem Docker com a tag "latest"
       - name: Build and push Docker image
         run: |
           docker build --platform linux/amd64 -t theussm/fm3buffet:latest .
