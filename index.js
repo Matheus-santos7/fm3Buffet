@@ -5,6 +5,6 @@ server.get('/*', restify.plugins.serveStatic({
     default: 'index.html'
 }))
 
-server.listen(config.port || 3001, () => {
+server.listen(3000, () => {
     console.log(`AMBIENTE: ${config.ambiente} URL: ${config.url} PORTA: ${config.port}`)
 })
