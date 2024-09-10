@@ -1,4 +1,4 @@
-global.config = require('./config').get('dev');
+global.config = require('./config').get('prod');
 
 const restify = require("restify");
 const recursiveReaddir = require('recursive-readdir');
@@ -7,7 +7,7 @@ const path = require('path');
 // Inicia o servidor
 const server = restify.createServer({
     name: 'Delivery',
-    version: '1.0.0'
+    version: '1.1.0'
 });
 
 // Adiciona as extensões do restify para o funcionamento do JSON nas requisições
