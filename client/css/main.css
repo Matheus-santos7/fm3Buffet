@@ -777,15 +777,20 @@ p.quant-item {
 }
 
 .width-fix.container-modal-actions {
-    width: 100%;
-    padding: 20px 30px;
-    background: white;
+    width: 80%;
+    margin-bottom: 50px;
+    padding: 20px;
+    background: var(--color-secondary);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-radius: 20px;
+}
+
+.container-modal-actions-opcoes {
+    background: var(--color-input-out);
+    border-radius: 20px;
 }
 
 .width-fix.container-modal-actions a {
@@ -795,6 +800,7 @@ p.quant-item {
     padding: 15px;
     text-align: center;
     border-bottom: 1px solid var(--color-separate);
+    color: var(--color-black);
 }
 
 .width-fix.container-modal-actions a:last-child {

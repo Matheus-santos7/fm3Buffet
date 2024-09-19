@@ -730,11 +730,11 @@ carrinho.method = {
                 let temp = `<a href="#!" onclick="carrinho.method.selecionarFormaPagamento('${e.idformapagamento}')">${e.nome}</a>`;
 
                 // adiciona a categoria ao menu
-                document.querySelector("#modalActionsFormaPagamento .container-modal-actions").innerHTML += temp;
+                document.querySelector("#modalActionsFormaPagamento .container-modal-actions-opcoes margin").innerHTML += temp;
 
                 // último, adiciona o botão de remover
                 if ((i + 1) == list.length) {
-                    document.querySelector("#modalActionsFormaPagamento .container-modal-actions").innerHTML += `<a href="#!" class="color-red" onclick="carrinho.method.selecionarFormaPagamento('')">Remover</a>`;
+                    document.querySelector("#modalActionsFormaPagamento .container-modal-actions-opcoes").innerHTML += `<a href="#!" class="color-red" onclick="carrinho.method.selecionarFormaPagamento('')">Remover</a>`;
                 }
 
             })
