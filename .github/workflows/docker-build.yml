@@ -57,7 +57,7 @@ jobs:
           git commit -m "Increment version to ${{ env.VERSION }}"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_TOKEN}}
 
       # Construção e envio da imagem Docker com as tags "latest" e nova versão
       - name: Build and push Docker image
