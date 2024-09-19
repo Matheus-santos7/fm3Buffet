@@ -94,65 +94,49 @@ app.method = {
 
     },
 
-    // centraliza as chamadas de post
-    upload: (url, dados, callbackSuccess, callbackError, login = false) => {
+// Centraliza as chamadas de POST
+upload: (url, dados, callbackSuccess, callbackError, login = false) => {
+    try {
+        // Verifica se o token é válido antes de prosseguir
+        if (app.method.validaToken(login)) {
 
-        try {
-            if (app.method.validaToken(login)) {
+            // Cria uma nova instância de XMLHttpRequest
+            let xhr = new XMLHttpRequest();
+            
+            // Configura a requisição para ser POST e assíncrona
+            xhr.open('POST', url, true);
+            
+            // Define o cabeçalho da requisição para enviar um token de autorização
+            xhr.setRequestHeader("Authorization", app.method.obterValorSessao('token'));
+            
+            // Define o cabeçalho correto para o tipo de conteúdo sendo enviado (multipart/form-data)
+            xhr.setRequestHeader("Mime-Type", 'multipart/form-data');
 
-                document.querySelector.ajax({
-                    url: url,
-                    method: 'POST',
-                    processData: false,
-                    contentType: false,
-                    data: dados,
-                    mimeType: 'multipart/form-data',
-                    async: true,
-                    crossDomain: true,
-                    beforeSend: (request) => { request.setRequestHeader("authorization", app.method.obterValorSessao('token')); },
-                    success: (response) => callbackSuccess(JSON.parse(response)),
-                    error: (xhr, ajaxOptions, error) => {
-
-                        // se o retorno for não autorizado, redireciona o usuário para o login
-                        if (xhr.status == 401) app.method.logout();
-
-                        callbackError(xhr, ajaxOptions, error)
-                    },
-                });
-
-                let xhr = new XMLHttpRequest();
-                xhr.open('POST', url, true);
-                xhr.setRequestHeader("Mime-Type", 'multipart/form-data');
-                xhr.setRequestHeader("Authorization", app.method.obterValorSessao('token'));
-
-                xhr.onreadystatechange = function () {
-
-                    if (this.readyState == 4) {
-
-                        if (this.status == 200) {
-                            return callbackSuccess(JSON.parse(xhr.responseText))
-                        }
-                        else {
-
-                            // se o retorno for não autorizado, redireciona o usuário para o login
-                            if (xhr.status == 401) app.method.logout();
-
-                            return callbackError(xhr.responseText);
-                        }
-
+            // Define o que fazer quando o estado da requisição mudar
+            xhr.onreadystatechange = function () {
+                // Verifica se a requisição foi concluída (readyState === 4)
+                if (this.readyState === 4) {
+                    // Se o status for 200 (OK), chama o callback de sucesso
+                    if (this.status === 200) {
+                        return callbackSuccess(JSON.parse(xhr.responseText));
+                    } 
+                    // Se o status for 401 (Não autorizado), chama o logout e o callback de erro
+                    else {
+                        if (xhr.status === 401) app.method.logout();
+                        return callbackError(xhr.responseText);
                     }
-
                 }
+            };
 
-                xhr.send(dados);
+            // Envia a requisição com os dados fornecidos
+            xhr.send(dados);
 
-            }
         }
-        catch (ex) {
-            return callbackError(ex);
-        }
-
-    },
+    } catch (ex) {
+        // Se houver um erro durante o processo, chama o callback de erro com o erro capturado
+        return callbackError(ex);
+    }
+},
 
     // método para validar se o token existe. É chamado em todas as requisições internas
     validaToken: (login = false) => {
