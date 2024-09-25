@@ -730,7 +730,7 @@ carrinho.method = {
                 let temp = `<a href="#!" onclick="carrinho.method.selecionarFormaPagamento('${e.idformapagamento}')">${e.nome}</a>`;
 
                 // adiciona a categoria ao menu
-                document.querySelector("#modalActionsFormaPagamento .container-modal-actions-opcoes margin").innerHTML += temp;
+                document.querySelector("#modalActionsFormaPagamento .container-modal-actions-opcoes").innerHTML += temp;
 
                 // último, adiciona o botão de remover
                 if ((i + 1) == list.length) {
