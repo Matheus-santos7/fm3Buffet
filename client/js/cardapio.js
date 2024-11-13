@@ -94,14 +94,16 @@ cardapio.method = {
                     .replace(/\${icone}/g, e.icone)
                     .replace(/\${active}/g, active)
 
-                // adiciona a categoria ao menu
-                document.querySelector("#listaCategorias").innerHTML += temp
+                    // adiciona a categoria ao menu
+                    document.querySelector("#listaCategorias").innerHTML += temp
+                    console.log("Processando idcategoria:", e.idcategoria);
 
                 let tempHeaderCategoria = cardapio.templates.headerCategoria.replace(/\${idcategoria}/g, e.idcategoria)
                     .replace(/\${nome}/g, e.nome);
 
                 // adiciona a categoria no cardápio
                 document.querySelector("#listaItenscardapio").innerHTML += tempHeaderCategoria;
+            
 
                 // No último item, obtem os produtos
                 if (list.length == (i + 1)) {
@@ -145,10 +147,9 @@ cardapio.method = {
                 app.method.loading(false);
 
                 if (response.status == "error") {
-                    console.log(response.message)
                     return;
                 }
-
+                console.log(response.data)
                 cardapio.method.carregarProdutos(response.data)
 
             },
